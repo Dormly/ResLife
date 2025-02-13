@@ -1,29 +1,21 @@
-"use client";
+import ProfileButton from "./Topbar/ProfileButton";
+import SearchBar from "./Topbar/SearchBar";
+import InboxButton from "./Topbar/InboxButton";
+import Logo from "./Topbar/Logo";
+import Path from "./Topbar/Path";
 
-import { dmSerif, geistSans, inter } from "@/app/ui/fonts";
-import {
-	LayoutDashboard,
-	Construction,
-	FileText,
-	Cog,
-	SunMoon,
-	CalendarClock,
-} from "lucide-react";
-
-import Image from "next/image";
-import Button from "@/app/components/button";
-
-const Topbar = () => {
+export default function Topbar() {
 	return (
-		<div className="flex flex-row justify-between bg-magenta p-[1.25rem]">
+		<div className="flex flex-row items-center justify-between bg-magenta p-[1.25rem] text-white">
 			<div>
-				<p>left</p>
+				<Logo />
+				<Path />
 			</div>
-			<div>
-				<p>right</p>
+			<div className="flex flex-row items-center justify-between gap-[1.25rem]">
+				<SearchBar />
+				<InboxButton />
+				<ProfileButton />
 			</div>
 		</div>
 	);
-};
-
-export default Topbar;
+}
