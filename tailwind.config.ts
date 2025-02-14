@@ -8,8 +8,6 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				background: "var(--background)",
-				foreground: "var(--foreground)",
 				magenta: "#8534EE",
 				saffron: "#E8AA00",
 				violet: "#E980FC",

@@ -20,7 +20,7 @@ export default function SidebarItem({
 				className={`flex w-full flex-row text-[1.25rem] font-bold ${inter.className}`}
 			>
 				<Link
-					className="w-full rounded-xl p-[0.5rem] duration-100 hover:bg-slate-200"
+					className="w-full rounded-md p-[0.5rem] duration-100 hover:bg-magenta/15"
 					href={href}
 				>
 					<div className="flex flex-row items-center justify-between">
@@ -32,7 +32,7 @@ export default function SidebarItem({
 					</div>
 				</Link>
 			</div>
-			<div className="w-full rounded-xl border-2 border-magenta bg-white p-[1.25rem]">
+			<div className="flex w-full flex-col gap-2 rounded-md border-2 border-magenta/15 bg-white p-[1.25rem]">
 				{children}
 			</div>
 		</div>
