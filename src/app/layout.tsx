@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { dmSerif, geistSans, inter } from "@/app/ui/fonts";
+import { inter } from "@/app/ui/fonts";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

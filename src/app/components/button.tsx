@@ -20,7 +20,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { LucideIcon, ChevronDown, ChevronUp } from "lucide-react";
+import { LucideIcon, ChevronDown } from "lucide-react";
 {
 	/* TODO: Change to ChevronUp when dropdown active & button pressed */
 }

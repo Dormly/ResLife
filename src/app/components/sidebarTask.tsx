@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SidebarTask({
 	title,
 	subtitle,
@@ -6,7 +8,7 @@ export default function SidebarTask({
 	subtitle: string;
 }) {
 	return (
-		<a
+		<Link
 			href="/"
 			className="flex items-center gap-3 rounded-md transition-all duration-100 hover:bg-magenta/10"
 		>
@@ -15,6 +17,6 @@ export default function SidebarTask({
 				<strong>{title}</strong>
 				<p>{subtitle}</p>
 			</div>
-		</a>
+		</Link>
 	);
 }

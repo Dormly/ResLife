@@ -1,10 +1,6 @@
 "use client";
 
-import { dmSerif, geistSans, inter } from "@/app/ui/fonts";
 import { ListTodo, AudioWaveform, CalendarDays } from "lucide-react";
-
-import Image from "next/image";
-import Button from "@/app/components/button";
 
 import SidebarItem from "./sidebarItem";
 import SidebarTask from "./sidebarTask";
