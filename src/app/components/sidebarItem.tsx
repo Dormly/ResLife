@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { dmSerif, geistSans, inter } from "@/app/ui/fonts";
+import { inter } from "@/app/ui/fonts";
 import { LucideIcon, ArrowRight } from "lucide-react";
 
 export default function SidebarItem({
