@@ -4,10 +4,15 @@ import "./globals.css";
 import { dmSerif, geistSans, inter } from "@/app/ui/fonts";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { createClient } from '@supabase/supabase-js'
 
 import SessionProvider from "./components/SessionProvider";
 import Sidebar from "@/app/components/sidebar";
 import Topbar from "@/app/components/Topbar";
+
+const supabaseUrl = 'https://ertqiknveclsdywsbiuu.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export const metadata: Metadata = {
 	title: "ResLife",
