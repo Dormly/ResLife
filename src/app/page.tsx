@@ -29,12 +29,12 @@ async function Greeting() {
 
 export default function Dashboard() {
 	return (
-		<div className="flex h-full w-full flex-col gap-[1.25rem]">
+		<div className="flex w-full flex-col gap-[1.25rem]">
 			<Greeting />
-			<div className="flex min-h-full w-full flex-row gap-[1.25rem]">
-				<div className="flex h-full w-full flex-col"></div>
+			<div className="flex w-full flex-row gap-[1.25rem]">
+				<div className="flex w-full flex-col"></div>
 
-				<div className="flex h-full w-full flex-col"></div>
+				<div className="flex w-full flex-col"></div>
 			</div>
 		</div>
 	);
