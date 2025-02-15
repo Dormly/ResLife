@@ -5,8 +5,7 @@ import Sidebar from "@/app/components/sidebar";
 import {
 	PanelGroup,
 	Panel,
-	PanelResizeHandle,
-	getPanelElement,
+	PanelResizeHandle
 } from "react-resizable-panels";
 
 export default function Content({
