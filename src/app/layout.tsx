@@ -14,7 +14,10 @@ import Topbar from "@/app/components/Topbar";
 const supabaseUrl: string = "https://ertqiknveclsdywsbiuu.supabase.co";
 const supabaseKey: string =
 	process.env.SUPABASE_KEY === undefined ? "" : process.env.SUPABASE_KEY;
-const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+const supabaseServiceKey: string =
+	process.env.SUPABASE_SERVICE_KEY === undefined ? "" : process.env.SUPABASE_SERVICE_KEY;
+//const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+const supabase = createClient<Database>(supabaseUrl, supabaseServiceKey);
 
 export const metadata: Metadata = {
 	title: "ResLife",
@@ -32,17 +35,16 @@ export default async function RootLayout({
 		redirect("/api/auth/signin");
 	}
 
-	const { data, error } = await supabase
-		.from('Users')
+	let { data, error } = await supabase
+		.from('users')
 		.select('email')
 		.eq('email', session.user.email == null ? "" : session.user.email);
 
 	if (data?.length === 0) {
-		await supabase.from("Users").insert([{ email: session.user.email || "", name: session.user.name || "" }]).select();
+		console.log("User not found in DB, creating new user");
+		({ data, error } = await supabase.from('users').insert([{ email: session.user.email || "", name: session.user.name || "" }]).select('email'));
 	}
 
-	console.log(data);
-	console.log(error);
 	return (
 		<html lang="en">
 			<SessionProvider session={session}>
