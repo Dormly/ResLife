@@ -6,8 +6,8 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 import SessionProvider from "./components/SessionProvider";
-import Sidebar from "@/app/components/sidebar";
 import Topbar from "@/app/components/Topbar";
+import Content from "@/app/components/Content";
 
 export const metadata: Metadata = {
 	title: "ResLife",
@@ -32,11 +32,10 @@ export default async function RootLayout({
 		<html lang="en">
 			<SessionProvider session={session}>
 				<body className={`${inter.variable} antialiased`}>
-					<div className="flex w-dvw flex-col">
+					<div className="flex flex-col">
 						<Topbar />
-						<div className="flex w-full flex-row">
-							<Sidebar />
-							<div className="flex w-full flex-col p-[1.25rem]">{children}</div>
+						<div className="">
+							<Content>{children}</Content>
 						</div>
 					</div>
 				</body>

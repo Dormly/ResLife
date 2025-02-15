@@ -29,7 +29,7 @@ async function Greeting() {
 
 export default function Dashboard() {
 	return (
-		<div className="flex w-full flex-col gap-[1.25rem]">
+		<div className="flex w-full flex-col gap-[1.25rem] overflow-y-scroll">
 			<Greeting />
 			<div className="flex w-full flex-row gap-[1.25rem]">
 				<div className="flex w-full flex-col"></div>
