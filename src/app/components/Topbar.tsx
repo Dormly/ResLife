@@ -6,12 +6,12 @@ import Path from "./Topbar/Path";
 
 export default function Topbar() {
 	return (
-		<div className="flex flex-row items-center justify-between bg-magenta p-[1.25rem] text-white">
+		<div className="flex flex-row items-center justify-between bg-magenta p-2 px-6 text-white">
 			<div>
 				<Logo />
 				<Path />
 			</div>
-			<div className="flex flex-row items-center justify-between gap-[1.25rem]">
+			<div className="flex flex-row items-center justify-between gap-6">
 				<SearchBar />
 				<InboxButton />
 				<ProfileButton />
