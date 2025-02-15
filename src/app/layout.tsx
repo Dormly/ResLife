@@ -32,13 +32,11 @@ export default async function RootLayout({
 		<html lang="en">
 			<SessionProvider session={session}>
 				<body className={`${inter.variable} antialiased`}>
-					<div className="flex h-dvh w-dvw flex-col">
+					<div className="flex w-dvw flex-col">
 						<Topbar />
-						<div className="flex h-full w-full flex-row">
+						<div className="flex w-full flex-row">
 							<Sidebar />
-							<div className="flex min-h-full w-full flex-col p-[1.25rem]">
-								{children}
-							</div>
+							<div className="flex w-full flex-col p-[1.25rem]">{children}</div>
 						</div>
 					</div>
 				</body>

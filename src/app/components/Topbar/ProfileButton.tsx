@@ -14,8 +14,8 @@ function AuthButton() {
 						className="rounded-full"
 						src={session?.user?.image ?? ""}
 						alt="Profile Picture"
-						width={48}
-						height={48}
+						width={40}
+						height={40}
 					></Image>
 				</button>
 			</>

@@ -7,7 +7,7 @@ import SidebarTask from "./sidebarTask";
 
 const Sidebar = () => {
 	return (
-		<div className="flex min-h-full min-w-[26rem] flex-col items-center gap-[1rem] border-r-2 border-magenta/15 bg-magnolia p-[1.25rem]">
+		<div className="flex min-w-[26rem] flex-col items-center gap-[1rem] border-r-2 border-magenta/15 bg-magnolia p-[1.25rem]">
 			<SidebarItem title="Tasks" Icon={ListTodo}>
 				<SidebarTask
 					title="Weekly Floor Reports"
@@ -39,6 +39,16 @@ const Sidebar = () => {
 				<SidebarTask
 					title="7:00pm - 9:00pm"
 					subtitle="Williams Lobby Office Shift"
+				></SidebarTask>
+				<SidebarTask title="10:00pm" subtitle="Building Meeting"></SidebarTask>
+				<strong>Tomorrow</strong>
+				<SidebarTask
+					title="3:00pm - 4:00pm"
+					subtitle="Slime Social Floor Program"
+				></SidebarTask>
+				<SidebarTask
+					title="10:00pm - 6:00am"
+					subtitle="RA Coverage Shift"
 				></SidebarTask>
 			</SidebarItem>
 		</div>
