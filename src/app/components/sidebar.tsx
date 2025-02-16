@@ -4,6 +4,8 @@ import { ListTodo, AudioWaveform, CalendarDays } from "lucide-react";
 
 import SidebarItem from "./sidebarItem";
 import SidebarTask from "./sidebarTask";
+import Supabase from "@/app/components/Supabase";
+import { getServerSession } from "next-auth";
 
 const Sidebar = () => {
 	return (

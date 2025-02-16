@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      tasks: {
+        Row: {
+          assigned_id: number
+          completed: boolean
+          created_at: string
+          description: string
+          id: number
+          title: string
+        }
+        Insert: {
+          assigned_id: number
+          completed?: boolean
+          created_at?: string
+          description?: string
+          id?: number
+          title?: string
+        }
+        Update: {
+          assigned_id?: number
+          completed?: boolean
+          created_at?: string
+          description?: string
+          id?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_assigned_id_fkey"
+            columns: ["assigned_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string
