@@ -17,15 +17,13 @@ export default function SidebarItem({
 	return (
 		<div className="flex w-full flex-col items-center gap-[0.625rem]">
 			<div
-				className={`flex w-full flex-row text-[1.25rem] font-bold ${inter.className}`}
-			>
+				className={`flex w-full flex-row text-[1.25rem] font-bold ${inter.className}`}>
 				<Link
 					className="w-full rounded-md p-[0.5rem] duration-100 hover:bg-magenta/15"
-					href={href}
-				>
+					href={href}>
 					<div className="flex flex-row items-center justify-between">
 						<div className="flex flex-row items-center gap-2">
-							{Icon && <Icon size={24} />}
+							{Icon && <Icon style={{ width: "1em", height: "1em" }} />}
 							{title && <p>{title}</p>}
 						</div>
 						<ArrowRight />
