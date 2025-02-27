@@ -2,10 +2,8 @@
 
 import { ListTodo, AudioWaveform, CalendarDays } from "lucide-react";
 
-import SidebarItem from "./sidebarItem";
-import SidebarTask from "./sidebarTask";
-import Supabase from "@/app/components/Supabase";
-import { getServerSession } from "next-auth";
+import SidebarItem from "./SidebarItem";
+import SidebarTask from "./SidebarTask";
 
 const Sidebar = () => {
 	return (
@@ -13,45 +11,37 @@ const Sidebar = () => {
 			<SidebarItem title="Tasks" Icon={ListTodo}>
 				<SidebarTask
 					title="Weekly Floor Reports"
-					subtitle="3/4 Reports Completed"
-				></SidebarTask>
+					subtitle="3/4 Reports Completed"></SidebarTask>
 				<SidebarTask
 					title="Program Planning"
-					subtitle="1/2 Monthly Programs Planned"
-				></SidebarTask>
+					subtitle="1/2 Monthly Programs Planned"></SidebarTask>
 				<SidebarTask
 					title="Decorations"
-					subtitle="Task completed!"
-				></SidebarTask>
+					subtitle="Task completed!"></SidebarTask>
 			</SidebarItem>
 
 			<SidebarItem title="Activity" Icon={AudioWaveform}>
 				<SidebarTask
 					title="Floor Program Approved"
-					subtitle="Slime Social Program Approved"
-				></SidebarTask>
+					subtitle="Slime Social Program Approved"></SidebarTask>
 				<SidebarTask
 					title="Shift Switch Request Approved"
-					subtitle="Tap to view details"
-				></SidebarTask>
+					subtitle="Tap to view details"></SidebarTask>
 			</SidebarItem>
 
 			<SidebarItem title="Calendar" Icon={CalendarDays}>
 				<strong>Today</strong>
 				<SidebarTask
 					title="7:00pm - 9:00pm"
-					subtitle="Williams Lobby Office Shift"
-				></SidebarTask>
+					subtitle="Williams Lobby Office Shift"></SidebarTask>
 				<SidebarTask title="10:00pm" subtitle="Building Meeting"></SidebarTask>
 				<strong>Tomorrow</strong>
 				<SidebarTask
 					title="3:00pm - 4:00pm"
-					subtitle="Slime Social Floor Program"
-				></SidebarTask>
+					subtitle="Slime Social Floor Program"></SidebarTask>
 				<SidebarTask
 					title="10:00pm - 6:00am"
-					subtitle="RA Coverage Shift"
-				></SidebarTask>
+					subtitle="RA Coverage Shift"></SidebarTask>
 			</SidebarItem>
 		</div>
 	);

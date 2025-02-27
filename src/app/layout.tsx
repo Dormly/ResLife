@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import Supabase from "@/app/components/Supabase";
 
 import SessionProvider from "./components/SessionProvider";
-import Sidebar from "@/app/components/sidebar";
+import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
 
 export const metadata: Metadata = {
@@ -46,6 +46,10 @@ export default async function RootLayout({
 							<Sidebar />
 							<div className="flex w-full flex-col p-[1.25rem]">{children}</div>
 						</div>
+					</div>
+
+					<div className="absolute bottom-0 right-0 z-10 p-[1.25rem]">
+						<NewButton />
 					</div>
 				</body>
 			</SessionProvider>
