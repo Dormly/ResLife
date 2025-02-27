@@ -6,6 +6,17 @@ import { Sun, Sunset, Moon } from "lucide-react";
 import { inter } from "@/app/ui/fonts";
 import { getServerSession } from "next-auth";
 
+import SidebarItem from "./components/SidebarItem";
+import Roster from "./components/Dashboard/Roster";
+import Announcements from "./components/Dashboard/Announcements";
+
+import {
+	ClipboardList,
+	Package,
+	MessageSquareWarning,
+	Megaphone,
+} from "lucide-react";
+
 const hour = new Date().getHours();
 
 async function Greeting() {
@@ -29,12 +40,22 @@ async function Greeting() {
 
 export default function Dashboard() {
 	return (
-		<div className="flex w-full flex-col gap-[1.25rem]">
+		<div className="flex h-full w-full flex-col gap-[1.25rem] overflow-y-scroll">
 			<Greeting />
 			<div className="flex w-full flex-row gap-[1.25rem]">
-				<div className="flex w-full flex-col"></div>
+				<div className="flex w-full flex-col gap-[1.25rem]">
+					<SidebarItem Icon={ClipboardList} title="Rosters">
+						<Roster />
+					</SidebarItem>
+					<SidebarItem Icon={Package} title="Mailroom" />
+				</div>
 
-				<div className="flex w-full flex-col"></div>
+				<div className="flex w-full flex-col gap-[1.25rem]">
+					<SidebarItem Icon={Megaphone} title="Announcements">
+						<Announcements />
+					</SidebarItem>
+					<SidebarItem Icon={MessageSquareWarning} title="Recent Reports" />
+				</div>
 			</div>
 		</div>
 	);

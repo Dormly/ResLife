@@ -7,7 +7,7 @@ import SidebarTask from "./SidebarTask";
 
 const Sidebar = () => {
 	return (
-		<div className="flex min-w-[26rem] flex-col items-center gap-[1rem] border-r-2 border-magenta/15 bg-magnolia p-[1.25rem]">
+		<div className="flex h-full min-w-[26rem] flex-col items-center gap-[1rem] overflow-y-scroll border-r-2 border-magenta/15 bg-magnolia p-[1.25rem]">
 			<SidebarItem title="Tasks" Icon={ListTodo}>
 				<SidebarTask
 					title="Weekly Floor Reports"
@@ -20,6 +20,14 @@ const Sidebar = () => {
 					subtitle="Task completed!"></SidebarTask>
 			</SidebarItem>
 
+			<SidebarItem title="Activity" Icon={AudioWaveform}>
+				<SidebarTask
+					title="Floor Program Approved"
+					subtitle="Slime Social Program Approved"></SidebarTask>
+				<SidebarTask
+					title="Shift Switch Request Approved"
+					subtitle="Tap to view details"></SidebarTask>
+			</SidebarItem>
 			<SidebarItem title="Activity" Icon={AudioWaveform}>
 				<SidebarTask
 					title="Floor Program Approved"

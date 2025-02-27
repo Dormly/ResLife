@@ -1,6 +1,6 @@
 /*
  *
- *   button.tsx
+ *   Button.tsx
  *   Custom button component
  *
  *   Props:
@@ -55,8 +55,7 @@ const Button: React.FC<ButtonProps> = ({
 	return (
 		<Link href={href}>
 			<div
-				className={`${textColor} ${hoverTextColor} ${bgColor} ${hoverBgColor} ${width} ${height} flex min-h-[4rem] min-w-[4rem] flex-row items-center gap-[0.5rem] rounded-xl p-[1.25rem] text-[1rem] font-bold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-100`}
-			>
+				className={`${textColor} ${hoverTextColor} ${bgColor} ${hoverBgColor} ${width} ${height} flex min-h-[4rem] min-w-[4rem] flex-row items-center gap-[0.5rem] rounded-xl p-[1.25rem] text-[1rem] font-bold drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] transition-all duration-100`}>
 				{Icon && <Icon size={24} />}
 				{label && <p className="text-nowrap">{label}</p>}
 				{dropdown && <ChevronDown />}

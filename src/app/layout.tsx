@@ -10,7 +10,7 @@ import { Database } from "../../supabase";
 import SessionProvider from "./components/SessionProvider";
 import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
-import NewButton from "./components/NewButton";
+import Reports from "./components/Reports";
 
 const supabaseUrl: string = "https://ertqiknveclsdywsbiuu.supabase.co";
 const supabaseKey: string =
@@ -57,16 +57,18 @@ export default async function RootLayout({
 		<html lang="en">
 			<SessionProvider session={session}>
 				<body className={`${inter.variable} antialiased`}>
-					<div className="absolute z-0 flex h-svh w-svw flex-col overflow-clip">
+					<div className="absolute z-0 flex h-svh w-svw flex-col overflow-y-clip">
 						<Topbar />
-						<div className="flex w-full flex-row">
+						<div className="flex h-full w-full flex-row overflow-clip">
 							<Sidebar />
-							<div className="flex w-full flex-col p-[1.25rem]">{children}</div>
+							<div className="flex w-full flex-col overflow-clip p-[1.25rem]">
+								{children}
+							</div>
 						</div>
 					</div>
 
 					<div className="absolute bottom-0 right-0 z-10 p-[1.25rem]">
-						<NewButton />
+						<Reports />
 					</div>
 				</body>
 			</SessionProvider>
