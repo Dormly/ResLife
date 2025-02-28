@@ -43,7 +43,7 @@ function formatPathSegments(path: string): PathSegment[] {
 	return formattedSegments;
 }
 
-export default function Logo() {
+export default function DynamicPath() {
 	const path = usePathname();
 
 	const pathSegments = formatPathSegments(path);
