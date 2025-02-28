@@ -30,7 +30,7 @@ export default function SidebarItem({
 					</div>
 				</Link>
 			</div>
-			<div className="flex w-full flex-col gap-2 rounded-md border-2 border-dashed border-magenta/15 bg-white p-[1.25rem]">
+			<div className="flex w-full flex-col gap-2 rounded-md border-2 border-magenta/15 bg-white p-[1.25rem]">
 				{children}
 			</div>
 		</div>
