@@ -4,12 +4,16 @@
 
 import { Sun, Sunset, Moon } from "lucide-react";
 import { inter } from "@/app/ui/fonts";
+import Supabase from "@/app/components/Supabase";
 import { getServerSession } from "next-auth";
 
 const hour = new Date().getHours();
 
 async function Greeting() {
 	const session = await getServerSession();
+
+	const { data, error } = await Supabase.from("users").select("name").eq('email', session?.user?.email || "");
+
 	return (
 		<span className="flex flex-row items-center gap-2 text-4xl">
 			{hour < 12 && <Sun style={{ width: "1em", height: "1em" }} />}
@@ -21,7 +25,7 @@ async function Greeting() {
 				{hour < 12 && "Good Morning, "}
 				{hour >= 12 && hour < 18 && "Good Afternoon, "}
 				{hour >= 18 && "Good Evening, "}
-				{session?.user?.name}
+				{data && data.length > 0 && data[0].name}
 			</p>
 		</span>
 	);
