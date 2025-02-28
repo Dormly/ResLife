@@ -27,6 +27,15 @@ function Announcement({
 	);
 }
 
+function formatDate(dateString: string): string {
+	const date = new Date(dateString);
+	const month = date.getMonth() + 1; // Months are 0-indexed
+	const day = date.getDate();
+	const year = date.getFullYear();
+
+	return `${month}/${day}/${year}`;
+}
+
 export default async function Announcements() {
 	const { data } = await supabase
 		.from("announcements")
@@ -43,7 +52,7 @@ export default async function Announcements() {
 					<>
 						<Announcement
 							author={item.creator_id.toString()}
-							date={item.created_at}
+							date={formatDate(item.created_at)}
 							title={item.title}
 							content={item.description}
 						/>
