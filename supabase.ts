@@ -9,6 +9,229 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          created_at: string
+          creator_id: number
+          description: string
+          id: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: number
+          description?: string
+          id?: number
+          title?: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: number
+          description?: string
+          id?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcements_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "announcements_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      building: {
+        Row: {
+          city: string | null
+          id: number
+          mailroom_id: number | null
+          name: string
+          state: string | null
+          street: string | null
+          zip: number | null
+        }
+        Insert: {
+          city?: string | null
+          id?: number
+          mailroom_id?: number | null
+          name: string
+          state?: string | null
+          street?: string | null
+          zip?: number | null
+        }
+        Update: {
+          city?: string | null
+          id?: number
+          mailroom_id?: number | null
+          name?: string
+          state?: string | null
+          street?: string | null
+          zip?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "building_mailroom_id_fkey"
+            columns: ["mailroom_id"]
+            isOneToOne: false
+            referencedRelation: "mailroom"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mail_entry: {
+        Row: {
+          id: number
+          issued_date: string | null
+          issuer_id: number | null
+          mailroom_id: number
+          received_at: string
+          receiver_id: number
+          student_id: number
+          type: Database["public"]["Enums"]["MailType"]
+        }
+        Insert: {
+          id?: number
+          issued_date?: string | null
+          issuer_id?: number | null
+          mailroom_id: number
+          received_at?: string
+          receiver_id: number
+          student_id: number
+          type: Database["public"]["Enums"]["MailType"]
+        }
+        Update: {
+          id?: number
+          issued_date?: string | null
+          issuer_id?: number | null
+          mailroom_id?: number
+          received_at?: string
+          receiver_id?: number
+          student_id?: number
+          type?: Database["public"]["Enums"]["MailType"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mail_entry_issuer_id_fkey"
+            columns: ["issuer_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mail_entry_receiver_id_fkey"
+            columns: ["receiver_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mail_mailroom_id_fkey"
+            columns: ["mailroom_id"]
+            isOneToOne: false
+            referencedRelation: "mailroom"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mail_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mailroom: {
+        Row: {
+          id: number
+          name: string
+        }
+        Insert: {
+          id?: number
+          name: string
+        }
+        Update: {
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      maintenance_entry: {
+        Row: {
+          building_id: number | null
+          completer_id: number | null
+          creator_id: number | null
+          date_completed: string | null
+          date_submitted: string
+          description: string
+          id: number
+        }
+        Insert: {
+          building_id?: number | null
+          completer_id?: number | null
+          creator_id?: number | null
+          date_completed?: string | null
+          date_submitted?: string
+          description: string
+          id?: number
+        }
+        Update: {
+          building_id?: number | null
+          completer_id?: number | null
+          creator_id?: number | null
+          date_completed?: string | null
+          date_submitted?: string
+          description?: string
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_entry_completer_id_fkey"
+            columns: ["completer_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_entry_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      students: {
+        Row: {
+          created_at: string
+          dob: string
+          first_name: string
+          id: number
+          last_name: string
+        }
+        Insert: {
+          created_at?: string
+          dob: string
+          first_name: string
+          id?: number
+          last_name: string
+        }
+        Update: {
+          created_at?: string
+          dob?: string
+          first_name?: string
+          id?: number
+          last_name?: string
+        }
+        Relationships: []
+      }
       tasks: {
         Row: {
           assigned_id: number
@@ -50,20 +273,31 @@ export type Database = {
           email: string
           id: number
           name: string
+          student_id: number | null
         }
         Insert: {
           created_at?: string
           email?: string
           id?: number
           name: string
+          student_id?: number | null
         }
         Update: {
           created_at?: string
           email?: string
           id?: number
           name?: string
+          student_id?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "users_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
@@ -73,7 +307,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      MailType: "Package" | "Letter" | "Perishables"
     }
     CompositeTypes: {
       [_ in never]: never

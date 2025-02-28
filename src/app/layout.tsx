@@ -9,6 +9,7 @@ import Supabase from "@/app/components/Supabase";
 import SessionProvider from "./components/SessionProvider";
 import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
+import NewButton from "@/app/components/NewButton"
 
 export const metadata: Metadata = {
 	title: "ResLife",
