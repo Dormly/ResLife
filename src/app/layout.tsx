@@ -4,8 +4,7 @@ import "./globals.css";
 import { inter } from "@/app/ui/fonts";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
-import { Database } from "../../supabase";
+import Supabase from "@/app/components/Supabase";
 
 import SessionProvider from "./components/SessionProvider";
 import Sidebar from "@/app/components/Sidebar";
@@ -38,25 +37,23 @@ export default async function RootLayout({
 		redirect("/api/auth/signin");
 	}
 
-	let { data, error } = await supabase
-		.from("users")
-		.select("email")
+	let { data, error } = await Supabase.from("users")
+		.select("id,email,name")
 		.eq("email", session.user.email == null ? "" : session.user.email);
 
 	if (data?.length === 0) {
 		console.log("User not found in DB, creating new user");
-		({ data, error } = await supabase
-			.from("users")
+		({ data, error } = await Supabase.from("users")
 			.insert([
 				{ email: session.user.email || "", name: session.user.name || "" },
 			])
-			.select("email"));
+			.select("id,email,name"));
 	}
 
 	return (
 		<html lang="en">
 			<SessionProvider session={session}>
-				<body className={`${inter.variable} antialiased`}>
+				<body className={`${inter.variable} overflow-x-clip antialiased`}>
 					<div className="absolute z-0 flex h-svh w-svw flex-col overflow-y-clip">
 						<Topbar />
 						<div className="flex h-full w-full flex-row overflow-clip">
