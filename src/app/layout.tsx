@@ -4,22 +4,12 @@ import "./globals.css";
 import { inter } from "@/app/ui/fonts";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import Supabase from "@/app/components/Supabase";
 
 import SessionProvider from "./components/SessionProvider";
 import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
 import Reports from "./components/Reports";
-
-const supabaseUrl: string = "https://ertqiknveclsdywsbiuu.supabase.co";
-const supabaseKey: string =
-	process.env.SUPABASE_KEY === undefined ? "" : process.env.SUPABASE_KEY;
-const supabaseServiceKey: string =
-	process.env.SUPABASE_SERVICE_KEY === undefined
-		? ""
-		: process.env.SUPABASE_SERVICE_KEY;
-//const supabase = createClient<Database>(supabaseUrl, supabaseKey);
-const supabase = createClient<Database>(supabaseUrl, supabaseServiceKey);
+import supabase from "./utils/supabase";
 
 export const metadata: Metadata = {
 	title: "ResLife",
@@ -37,13 +27,15 @@ export default async function RootLayout({
 		redirect("/api/auth/signin");
 	}
 
-	let { data, error } = await Supabase.from("users")
+	let { data, error } = await supabase
+		.from("users")
 		.select("id,email,name")
 		.eq("email", session.user.email == null ? "" : session.user.email);
 
 	if (data?.length === 0) {
 		console.log("User not found in DB, creating new user");
-		({ data, error } = await Supabase.from("users")
+		({ data, error } = await supabase
+			.from("users")
 			.insert([
 				{ email: session.user.email || "", name: session.user.name || "" },
 			])
