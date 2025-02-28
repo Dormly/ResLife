@@ -28,14 +28,6 @@ const Sidebar = () => {
 					title="Shift Switch Request Approved"
 					subtitle="Tap to view details"></SidebarTask>
 			</SidebarItem>
-			<SidebarItem title="Activity" Icon={AudioWaveform}>
-				<SidebarTask
-					title="Floor Program Approved"
-					subtitle="Slime Social Program Approved"></SidebarTask>
-				<SidebarTask
-					title="Shift Switch Request Approved"
-					subtitle="Tap to view details"></SidebarTask>
-			</SidebarItem>
 
 			<SidebarItem title="Calendar" Icon={CalendarDays}>
 				<strong>Today</strong>
