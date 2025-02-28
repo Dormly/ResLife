@@ -27,14 +27,14 @@ export default async function RootLayout({
 		redirect("/api/auth/signin");
 	}
 
-	let { data, error } = await supabase
+	let { data } = await supabase
 		.from("users")
 		.select("id,email,name")
 		.eq("email", session.user.email == null ? "" : session.user.email);
 
 	if (data?.length === 0) {
 		console.log("User not found in DB, creating new user");
-		({ data, error } = await supabase
+		({ data } = await supabase
 			.from("users")
 			.insert([
 				{ email: session.user.email || "", name: session.user.name || "" },

@@ -33,8 +33,9 @@ function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 function RosterTable() {
 	return (
 		<div className="flex flex-col overflow-clip rounded-sm">
-			{roster.map((item) => (
+			{roster.map((item, idx) => (
 				<RosterEntry
+					key={`roster-entry-${idx}`}
 					fName={item.fName}
 					lName={item.lName}
 					id={item.ID}

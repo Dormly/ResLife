@@ -23,7 +23,7 @@ function Report({
 }: {
 	modalTitle?: string;
 	children?: React.ReactNode;
-	onClose?: any;
+	onClose?: () => void;
 }) {
 	return (
 		<div className="absolute z-50 flex h-svh w-svw flex-row items-center justify-center bg-black/50 align-middle">

@@ -3,17 +3,6 @@ import exdb from "../exdb.json";
 
 const announcements = exdb.announcements;
 
-function getAnnouncements() {
-	return announcements.map((item) => (
-		<Announcement
-			author={item.author}
-			date={item.date}
-			title={item.title}
-			content={item.content}
-		/>
-	));
-}
-
 function Announcement({
 	author,
 	date,

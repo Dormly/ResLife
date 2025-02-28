@@ -23,7 +23,7 @@ const hour = new Date().getHours();
 async function Greeting() {
 	const session = await getServerSession();
 
-	const { data, error } = await supabase
+	const { data } = await supabase
 		.from("users")
 		.select("name")
 		.eq("email", session?.user?.email || "");
