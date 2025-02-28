@@ -41,9 +41,11 @@ function formatDate(dateString: string): string {
 export default async function Announcements() {
 	const { data: announcements } = await supabase
 		.from("announcements")
-		.select("id,creator_id,title,description,created_at")
+		.select("id,creator_id(name),title,description,created_at")
 		.order("created_at", { ascending: false })
 		.limit(5);
+
+	console.log(announcements);
 
 	return (
 		<div className="flex flex-col gap-[1.25rem]">
@@ -52,7 +54,7 @@ export default async function Announcements() {
 					<>
 						<Announcement
 							key={item.id}
-							author={item.creator_id.toString()}
+							author={item.creator_id.name}
 							date={formatDate(item.created_at)}
 							title={item.title}
 							content={item.description}
