@@ -1,5 +1,6 @@
 import Link from "next/link";
 import exdb from "../exdb.json";
+import supabase from "../../utils/supabase";
 
 const announcements = exdb.announcements;
 
@@ -29,28 +30,36 @@ function Announcement({
 	);
 }
 
-export default function Announcements() {
+export default async function Announcements() {
+	const { data } = await supabase
+	.from("announcements")
+	.select("creator_id,title,description,created_at")
+	.order("created_at", { ascending: false })
+	.limit(5);
+
+	console.log(data);
+
 	return (
 		<div className="flex flex-col gap-[1.25rem]">
-			{announcements.slice(0, 3).map((item, idx) => (
+			{data !== null && data.slice(0, 3).map((item, idx) => (
 				<>
 					<Announcement
-						author={item.author}
-						date={item.date}
+						author={item.creator_id}
+						date={item.created_at}
 						title={item.title}
-						content={item.content}
+						content={item.description}
 					/>
 					{idx < 2 && <div className="h-[1px] w-full bg-zinc-200" />}
 				</>
 			))}
 
-			{announcements.length > 3 && (
+			{data !== null && data.length > 3 && (
 				<>
 					<div className="h-[1px] w-full bg-zinc-200" />
 					<Link
 						href="/announcements"
 						className="text-sm text-gray-500 hover:text-magenta hover:underline">
-						+ {announcements.length - 3} more
+						+ {data.length - 3} more
 					</Link>
 				</>
 			)}
