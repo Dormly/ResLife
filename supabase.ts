@@ -39,13 +39,6 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "announcements_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
         ]
       }
       building: {
@@ -364,7 +357,7 @@ export type Database = {
             foreignKeyName: "users_student_id_fkey"
             columns: ["student_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "students"
             referencedColumns: ["id"]
           },
         ]
