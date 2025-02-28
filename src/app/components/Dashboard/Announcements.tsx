@@ -44,9 +44,7 @@ export default async function Announcements() {
 		.select("id,creator_id(name),title,description,created_at")
 		.order("created_at", { ascending: false })
 		.limit(5);
-
-	console.log(announcements);
-
+		
 	return (
 		<div className="flex flex-col gap-[1.25rem]">
 			{announcements !== null &&
