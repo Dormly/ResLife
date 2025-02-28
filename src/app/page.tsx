@@ -50,7 +50,7 @@ export default function Dashboard() {
 					<SidebarItem Icon={Package} title="Mailroom" />
 				</div>
 
-				<div className="flex w-full flex-col gap-[1.25rem]">
+				<div className="flex w-[36rem] flex-col gap-[1.25rem]">
 					<SidebarItem Icon={Megaphone} title="Announcements">
 						<Announcements />
 					</SidebarItem>
