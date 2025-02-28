@@ -24,7 +24,7 @@ function Announcement({
 				</div>
 				<p>{date}</p>
 			</span>
-			<p className="opacity-60">{content}</p>
+			<p className="line-clamp-3 opacity-60">{content}</p>
 		</div>
 	);
 }
