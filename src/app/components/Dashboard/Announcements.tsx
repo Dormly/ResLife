@@ -37,6 +37,12 @@ function formatDate(dateString: string): string {
 	return `${month}/${day}/${year}`;
 }
 
+/**
+ * Component to display a list of announcements.
+ *
+ * @param {number} [props.request=5] - The number of announcements to request from the database. Defaults to 5.
+ * @param {number} [props.display=3] - The number of announcements to display. Defaults to 3.
+ */
 export default async function Announcements({
 	request = 5,
 	display = 3,
