@@ -25,6 +25,7 @@
 			"roomNo": "HEI 402"
 		}
 	],
+
 	"announcements": [
 		{
 			"title": "Dorm Meeting",
@@ -37,6 +38,30 @@
 			"author": "Facilities",
 			"date": "2/21/2025",
 			"content": "Water supply will be temporarily shut off tomorrow from 10 AM to 12 PM."
+		},
+		{
+			"title": "Social Event: Game Night",
+			"author": "Student Activities",
+			"date": "3/01/2025",
+			"content": "Join us for a fun-filled game night in the student center! Prizes will be awarded."
+		},
+		{
+			"title": "Library Closure",
+			"author": "Library Staff",
+			"date": "2/28/2025",
+			"content": "The library will be closed for inventory on Friday, February 28th. Normal hours will resume on Saturday."
+		},
+		{
+			"title": "Career Fair",
+			"author": "Career Services",
+			"date": "3/05/2025",
+			"content": "Don't miss the annual career fair! Meet with recruiters from top companies."
+		},
+		{
+			"title": "Tutoring Available",
+			"author": "Academic Support",
+			"date": "2/27/2025",
+			"content": "Free tutoring is available in math, science, and writing. Sign up online."
 		}
 	]
 }
