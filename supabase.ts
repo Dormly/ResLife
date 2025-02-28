@@ -86,7 +86,42 @@ export type Database = {
           },
         ]
       }
-      mail_entry: {
+      incident_record: {
+        Row: {
+          created_date: string
+          creator_id: number
+          date: string
+          description: string | null
+          id: number
+          title: string | null
+        }
+        Insert: {
+          created_date?: string
+          creator_id: number
+          date?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+        }
+        Update: {
+          created_date?: string
+          creator_id?: number
+          date?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_record_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mail_record: {
         Row: {
           id: number
           issued_date: string | null
@@ -163,7 +198,7 @@ export type Database = {
         }
         Relationships: []
       }
-      maintenance_entry: {
+      maintenance_record: {
         Row: {
           building_id: number | null
           completer_id: number | null
@@ -201,6 +236,41 @@ export type Database = {
           },
           {
             foreignKeyName: "maintenance_entry_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      report_record: {
+        Row: {
+          created_date: string
+          creator_id: number
+          date: string
+          description: string | null
+          id: number
+          title: string | null
+        }
+        Insert: {
+          created_date?: string
+          creator_id: number
+          date?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+        }
+        Update: {
+          created_date?: string
+          creator_id?: number
+          date?: string
+          description?: string | null
+          id?: number
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_record_creator_id_fkey"
             columns: ["creator_id"]
             isOneToOne: false
             referencedRelation: "users"
