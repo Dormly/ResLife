@@ -4,7 +4,6 @@
 
 import { Sun, Sunset, Moon } from "lucide-react";
 import { inter } from "@/app/ui/fonts";
-import Supabase from "@/app/components/Supabase";
 import { getServerSession } from "next-auth";
 
 import SidebarItem from "./components/SidebarItem";
@@ -17,13 +16,17 @@ import {
 	MessageSquareWarning,
 	Megaphone,
 } from "lucide-react";
+import supabase from "./utils/supabase";
 
 const hour = new Date().getHours();
 
 async function Greeting() {
 	const session = await getServerSession();
 
-	const { data, error } = await Supabase.from("users").select("name").eq('email', session?.user?.email || "");
+	const { data, error } = await supabase
+		.from("users")
+		.select("name")
+		.eq("email", session?.user?.email || "");
 
 	return (
 		<span className="flex flex-row items-center gap-2 text-4xl">
