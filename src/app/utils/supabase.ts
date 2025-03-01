@@ -54,6 +54,8 @@ export type Database = {
       }
       building: {
         Row: {
+          abbreviation: string
+          campus_id: number
           city: string | null
           id: number
           mailroom_id: number | null
@@ -63,6 +65,8 @@ export type Database = {
           zip: number | null
         }
         Insert: {
+          abbreviation: string
+          campus_id: number
           city?: string | null
           id?: number
           mailroom_id?: number | null
@@ -72,6 +76,8 @@ export type Database = {
           zip?: number | null
         }
         Update: {
+          abbreviation?: string
+          campus_id?: number
           city?: string | null
           id?: number
           mailroom_id?: number | null
@@ -82,6 +88,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "building_campus_id_fkey"
+            columns: ["campus_id"]
+            isOneToOne: false
+            referencedRelation: "campus"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "building_mailroom_id_fkey"
             columns: ["mailroom_id"]
             isOneToOne: false
@@ -90,7 +103,98 @@ export type Database = {
           },
         ]
       }
-      incident_record: {
+      campus: {
+        Row: {
+          campus_name: string | null
+          id: number
+          university_id: number
+        }
+        Insert: {
+          campus_name?: string | null
+          id?: number
+          university_id: number
+        }
+        Update: {
+          campus_name?: string | null
+          id?: number
+          university_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campus_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "university"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      floor_staff: {
+        Row: {
+          end_date: string | null
+          floor_id: number
+          id: number
+          start_date: string
+          user_id: number
+        }
+        Insert: {
+          end_date?: string | null
+          floor_id: number
+          id?: number
+          start_date?: string
+          user_id: number
+        }
+        Update: {
+          end_date?: string | null
+          floor_id?: number
+          id?: number
+          start_date?: string
+          user_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "floor_staff_floor_id_fkey"
+            columns: ["floor_id"]
+            isOneToOne: false
+            referencedRelation: "floors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "floor_staff_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      floors: {
+        Row: {
+          building_id: number
+          floor_name: string
+          id: number
+        }
+        Insert: {
+          building_id: number
+          floor_name: string
+          id?: number
+        }
+        Update: {
+          building_id?: number
+          floor_name?: string
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "floors_building_id_fkey"
+            columns: ["building_id"]
+            isOneToOne: false
+            referencedRelation: "building"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incidents: {
         Row: {
           created_date: string
           creator_id: number
@@ -202,7 +306,7 @@ export type Database = {
         }
         Relationships: []
       }
-      maintenance_record: {
+      maintenances: {
         Row: {
           building_id: number | null
           completer_id: number | null
@@ -247,7 +351,7 @@ export type Database = {
           },
         ]
       }
-      report_record: {
+      reports: {
         Row: {
           created_date: string
           creator_id: number
@@ -282,6 +386,97 @@ export type Database = {
           },
         ]
       }
+      room_spaces: {
+        Row: {
+          id: number
+          room_id: number
+          space_open: boolean
+        }
+        Insert: {
+          id?: number
+          room_id: number
+          space_open?: boolean
+        }
+        Update: {
+          id?: number
+          room_id?: number
+          space_open?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_spaces_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rooms: {
+        Row: {
+          floor_id: number
+          id: number
+          room: string
+        }
+        Insert: {
+          floor_id: number
+          id?: number
+          room: string
+        }
+        Update: {
+          floor_id?: number
+          id?: number
+          room?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rooms_floor_id_fkey"
+            columns: ["floor_id"]
+            isOneToOne: false
+            referencedRelation: "floors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_bookings: {
+        Row: {
+          booking_end: string | null
+          booking_start: string
+          id: number
+          room_space_id: number
+          student_id: number | null
+        }
+        Insert: {
+          booking_end?: string | null
+          booking_start?: string
+          id?: number
+          room_space_id: number
+          student_id?: number | null
+        }
+        Update: {
+          booking_end?: string | null
+          booking_start?: string
+          id?: number
+          room_space_id?: number
+          student_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_bookings_room_space_id_fkey"
+            columns: ["room_space_id"]
+            isOneToOne: false
+            referencedRelation: "room_spaces"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_bookings_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       students: {
         Row: {
           created_at: string
@@ -289,6 +484,7 @@ export type Database = {
           first_name: string
           id: number
           last_name: string
+          preferred_name: string | null
         }
         Insert: {
           created_at?: string
@@ -296,6 +492,7 @@ export type Database = {
           first_name: string
           id?: number
           last_name: string
+          preferred_name?: string | null
         }
         Update: {
           created_at?: string
@@ -303,6 +500,7 @@ export type Database = {
           first_name?: string
           id?: number
           last_name?: string
+          preferred_name?: string | null
         }
         Relationships: []
       }
@@ -341,6 +539,27 @@ export type Database = {
           },
         ]
       }
+      university: {
+        Row: {
+          abbreviation: string | null
+          id: number
+          institution_code: string
+          name: string | null
+        }
+        Insert: {
+          abbreviation?: string | null
+          id?: number
+          institution_code: string
+          name?: string | null
+        }
+        Update: {
+          abbreviation?: string | null
+          id?: number
+          institution_code?: string
+          name?: string | null
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           created_at: string
@@ -349,6 +568,7 @@ export type Database = {
           name: string
           profile: string | null
           student_id: number | null
+          university_id: number
         }
         Insert: {
           created_at?: string
@@ -357,6 +577,7 @@ export type Database = {
           name: string
           profile?: string | null
           student_id?: number | null
+          university_id: number
         }
         Update: {
           created_at?: string
@@ -365,6 +586,7 @@ export type Database = {
           name?: string
           profile?: string | null
           student_id?: number | null
+          university_id?: number
         }
         Relationships: [
           {
@@ -372,6 +594,13 @@ export type Database = {
             columns: ["student_id"]
             isOneToOne: false
             referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "users_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "university"
             referencedColumns: ["id"]
           },
         ]

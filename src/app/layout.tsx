@@ -26,7 +26,7 @@ export default async function RootLayout({
 	if (!session || !session.user) {
 		redirect("/api/auth/signin");
 	}
-	
+
 	let { data } = await supabase
 		.from("users")
 		.select("id,email,name,profile")
@@ -37,7 +37,7 @@ export default async function RootLayout({
 		({ data } = await supabase
 			.from("users")
 			.insert([
-				{ email: session.user.email || "", name: session.user.name || "", profile: session.user.image || "" },
+				{ email: session.user.email || "", name: session.user.name || "", profile: session.user.image || "", university_id: 1 },
 			])
 			.select("id,email,name,profile"));
 	}
