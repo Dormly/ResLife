@@ -27,6 +27,7 @@ export type Database = {
           description: string
           id: number
           title: string
+          type: Database["public"]["Enums"]["AnnouncementType"]
         }
         Insert: {
           created_at?: string
@@ -34,6 +35,7 @@ export type Database = {
           description?: string
           id?: number
           title?: string
+          type?: Database["public"]["Enums"]["AnnouncementType"]
         }
         Update: {
           created_at?: string
@@ -41,6 +43,7 @@ export type Database = {
           description?: string
           id?: number
           title?: string
+          type?: Database["public"]["Enums"]["AnnouncementType"]
         }
         Relationships: [
           {
@@ -125,6 +128,50 @@ export type Database = {
             columns: ["university_id"]
             isOneToOne: false
             referencedRelation: "university"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          contact_email: string
+          contact_name: string
+          end_date: string
+          event_description: string
+          event_location: string
+          event_name: string
+          id: number
+          organization_id: number
+          start_date: string
+        }
+        Insert: {
+          contact_email: string
+          contact_name: string
+          end_date: string
+          event_description: string
+          event_location: string
+          event_name: string
+          id?: number
+          organization_id: number
+          start_date: string
+        }
+        Update: {
+          contact_email?: string
+          contact_name?: string
+          end_date?: string
+          event_description?: string
+          event_location?: string
+          event_name?: string
+          id?: number
+          organization_id?: number
+          start_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
         ]
@@ -347,6 +394,50 @@ export type Database = {
             columns: ["creator_id"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          contact_email: string | null
+          contact_name: string | null
+          description: string | null
+          id: number
+          meeting_location: string | null
+          meeting_time: string | null
+          name: string
+          photo: string | null
+          university_id: number
+        }
+        Insert: {
+          contact_email?: string | null
+          contact_name?: string | null
+          description?: string | null
+          id?: number
+          meeting_location?: string | null
+          meeting_time?: string | null
+          name: string
+          photo?: string | null
+          university_id: number
+        }
+        Update: {
+          contact_email?: string | null
+          contact_name?: string | null
+          description?: string | null
+          id?: number
+          meeting_location?: string | null
+          meeting_time?: string | null
+          name?: string
+          photo?: string | null
+          university_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organizations_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "university"
             referencedColumns: ["id"]
           },
         ]
@@ -613,6 +704,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      AnnouncementType: "ResLife" | "OnCampus"
       MailType: "Package" | "Letter" | "Perishables"
     }
     CompositeTypes: {
