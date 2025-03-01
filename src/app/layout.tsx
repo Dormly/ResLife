@@ -37,7 +37,12 @@ export default async function RootLayout({
 		({ data } = await supabase
 			.from("users")
 			.insert([
-				{ email: session.user.email || "", name: session.user.name || "", profile: session.user.image || "", university_id: 1 },
+				{
+					email: session.user.email || "",
+					name: session.user.name || "",
+					profile: session.user.image || "",
+					university_id: 1,
+				},
 			])
 			.select("id,email,name,profile"));
 	}
@@ -52,7 +57,7 @@ export default async function RootLayout({
 							<div className="h-full w-[26rem] flex-shrink-0 overflow-y-auto">
 								<Sidebar />
 							</div>
-							<div className="flex w-full flex-1 flex-col overflow-y-auto p-[1.25rem]">
+							<div className="flex w-full flex-1 flex-col overflow-y-auto">
 								{children}
 							</div>
 						</div>
