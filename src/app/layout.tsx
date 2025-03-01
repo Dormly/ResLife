@@ -29,7 +29,7 @@ export default async function RootLayout({
 
 	let { data } = await supabase
 		.from("users")
-		.select("id,email,name")
+		.select("id,email,name,profile")
 		.eq("email", session.user.email == null ? "" : session.user.email);
 
 	if (data?.length === 0) {
@@ -37,9 +37,9 @@ export default async function RootLayout({
 		({ data } = await supabase
 			.from("users")
 			.insert([
-				{ email: session.user.email || "", name: session.user.name || "" },
+				{ email: session.user.email || "", name: session.user.name || "", profile: session.user.image || "", university_id: 1 },
 			])
-			.select("id,email,name"));
+			.select("id,email,name,profile"));
 	}
 
 	return (
