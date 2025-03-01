@@ -52,7 +52,7 @@ export default function Dashboard() {
 			<Greeting />
 			<div className="flex w-full flex-row gap-[1.25rem]">
 				<div className="flex w-full flex-col gap-[1.25rem]">
-					<SidebarItem Icon={ClipboardList} title="Rosters">
+					<SidebarItem Icon={ClipboardList} title="Your Floor">
 						<Roster />
 					</SidebarItem>
 					<SidebarItem Icon={Package} title="Mailroom">

@@ -1,6 +1,7 @@
 import React from "react";
 
 import exdb from "../exdb.json";
+import Link from "next/link";
 
 const roster = exdb.roster;
 
@@ -13,7 +14,9 @@ interface RosterEntry {
 
 function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 	return (
-		<div className="flex flex-row justify-between">
+		<Link
+			href="/"
+			className="flex flex-row justify-between rounded-md px-2 py-1 transition-all duration-100 odd:bg-magenta/5 hover:bg-magenta/15">
 			<span className="w-full">
 				<p>{fName}</p>
 			</span>
@@ -26,13 +29,27 @@ function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 			<span className="w-full">
 				<p>{roomNo}</p>
 			</span>
-		</div>
+		</Link>
 	);
 }
 
 function RosterTable() {
 	return (
-		<div className="flex flex-col overflow-clip rounded-sm">
+		<div className="flex flex-col gap-1 overflow-clip rounded-sm">
+			<div className="flex flex-row justify-between rounded-md bg-magenta px-2 py-1 font-semibold text-white">
+				<span className="w-full">
+					<p>First Name</p>
+				</span>
+				<span className="w-full">
+					<p>Last Name</p>
+				</span>
+				<span className="w-full">
+					<p>ID</p>
+				</span>
+				<span className="w-full">
+					<p>Room No</p>
+				</span>
+			</div>
 			{roster.map((item, idx) => (
 				<RosterEntry
 					key={`roster-entry-${idx}`}
@@ -49,7 +66,6 @@ function RosterTable() {
 export default function Roster() {
 	return (
 		<div className="flex flex-col gap-[1.25rem]">
-			<h1>Williams / 4B</h1>
 			<RosterTable />
 		</div>
 	);
