@@ -1,14 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import supabase from "../../utils/supabase";
 
 function Announcement({
 	author,
+	profile,
 	date,
 	title,
 	content,
 }: {
 	key: number;
 	author: string;
+	profile: string;
 	date: string;
 	title: string;
 	content: string;
@@ -18,7 +21,8 @@ function Announcement({
 			<p className="text-2xl font-bold">{title}</p>
 			<span className="flex flex-row items-center justify-between pb-2">
 				<div className="flex items-center gap-2">
-					<div className="h-5 w-5 rounded-full bg-gray-400" />
+					{profile == "" ? (<div className="h-5 w-5 rounded-full bg-gray-400" />) : (<Image src={profile} width={40} height={40} className="h-5 w-5 rounded-full bg-gray-400" alt={author}/>)}
+					
 					<p className="font-medium">{author}</p>
 				</div>
 				<p>{date}</p>
@@ -52,7 +56,7 @@ export default async function Announcements({
 }) {
 	const { data: announcements } = await supabase
 		.from("announcements")
-		.select("id,creator_id(name),title,description,created_at")
+		.select("id,creator_id(name,profile),title,description,created_at")
 		.order("created_at", { ascending: false })
 		.limit(request);
 
@@ -64,6 +68,7 @@ export default async function Announcements({
 						<Announcement
 							key={item.id}
 							author={item.creator_id.name}
+							profile={item.creator_id.profile || ""}
 							date={formatDate(item.created_at)}
 							title={item.title}
 							content={item.description}
