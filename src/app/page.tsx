@@ -2,32 +2,22 @@
  * Dashboard
  */
 
-import { Sun, Sunset, Moon } from "lucide-react";
+import { Sun, Sunset, Moon, CalendarDays } from "lucide-react";
 import { inter } from "@/app/ui/fonts";
 import { getServerSession } from "next-auth";
 
 import SidebarItem from "./components/SidebarItem";
 import Roster from "./components/Dashboard/Roster";
-import Mailroom from "./components/Dashboard/Mailroom";
 import Announcements from "./components/Dashboard/Announcements";
 
-import {
-	ClipboardList,
-	Package,
-	MessageSquareWarning,
-	Megaphone,
-} from "lucide-react";
+import { ClipboardList, Megaphone } from "lucide-react";
 import supabase from "./utils/supabase";
+import SidebarTask from "./components/SidebarTask";
 
-const hour = new Date().getHours();
+function HourGreeting({ name }: { name: string }) {
+	"use client";
 
-async function Greeting() {
-	const session = await getServerSession();
-
-	const { data } = await supabase
-		.from("users")
-		.select("name")
-		.eq("email", session?.user?.email || "");
+	const hour = new Date().getHours();
 
 	return (
 		<span className="flex flex-row items-center gap-2 text-4xl">
@@ -40,10 +30,21 @@ async function Greeting() {
 				{hour < 12 && "Good Morning, "}
 				{hour >= 12 && hour < 18 && "Good Afternoon, "}
 				{hour >= 18 && "Good Evening, "}
-				{data && data.length > 0 && data[0].name}
+				{name}
 			</p>
 		</span>
 	);
+}
+
+async function Greeting() {
+	const session = await getServerSession();
+
+	const { data } = await supabase
+		.from("users")
+		.select("name")
+		.eq("email", session?.user?.email || "");
+
+	return <HourGreeting name={data?.[0]?.name || "Residential Living Staff"} />;
 }
 
 export default function Dashboard() {
@@ -52,11 +53,33 @@ export default function Dashboard() {
 			<Greeting />
 			<div className="flex w-full flex-row gap-[1.25rem]">
 				<div className="flex w-full flex-col gap-[1.25rem]">
+					<SidebarItem title="Calendar" Icon={CalendarDays}>
+						<div className="flex w-full gap-8">
+							<div className="flex w-full flex-col gap-2">
+								<strong className="w-full rounded-md bg-magenta px-2 py-1 text-lg text-white">
+									Today
+								</strong>
+								<SidebarTask
+									title="7:00pm - 9:00pm"
+									subtitle="Williams Lobby Office Shift"></SidebarTask>
+								<SidebarTask
+									title="10:00pm"
+									subtitle="Building Meeting"></SidebarTask>
+							</div>
+							<div className="flex w-full flex-col gap-2">
+								<strong className="pb-1 text-lg">Tomorrow</strong>
+								<SidebarTask
+									title="3:00pm - 4:00pm"
+									subtitle="Slime Social Floor Program"></SidebarTask>
+								<SidebarTask
+									title="10:00pm - 6:00am"
+									subtitle="RA Coverage Shift"></SidebarTask>
+							</div>
+						</div>
+					</SidebarItem>
+
 					<SidebarItem Icon={ClipboardList} title="Your Floor">
 						<Roster />
-					</SidebarItem>
-					<SidebarItem Icon={Package} title="Mailroom">
-						<Mailroom />
 					</SidebarItem>
 				</div>
 
@@ -67,7 +90,6 @@ export default function Dashboard() {
 						title="Announcements">
 						<Announcements />
 					</SidebarItem>
-					<SidebarItem Icon={MessageSquareWarning} title="Recent Reports" />
 				</div>
 			</div>
 		</div>

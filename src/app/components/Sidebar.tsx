@@ -1,4 +1,4 @@
-import { ListTodo, AudioWaveform, CalendarDays } from "lucide-react";
+import { ListTodo, AudioWaveform, MessageSquareWarning } from "lucide-react";
 
 import SidebarItem from "./SidebarItem";
 import SidebarTask from "./SidebarTask";
@@ -27,20 +27,7 @@ export default function Sidebar() {
 					subtitle="Tap to view details"></SidebarTask>
 			</SidebarItem>
 
-			<SidebarItem title="Calendar" Icon={CalendarDays}>
-				<strong>Today</strong>
-				<SidebarTask
-					title="7:00pm - 9:00pm"
-					subtitle="Williams Lobby Office Shift"></SidebarTask>
-				<SidebarTask title="10:00pm" subtitle="Building Meeting"></SidebarTask>
-				<strong>Tomorrow</strong>
-				<SidebarTask
-					title="3:00pm - 4:00pm"
-					subtitle="Slime Social Floor Program"></SidebarTask>
-				<SidebarTask
-					title="10:00pm - 6:00am"
-					subtitle="RA Coverage Shift"></SidebarTask>
-			</SidebarItem>
+			<SidebarItem Icon={MessageSquareWarning} title="Recent Reports" />
 		</div>
 	);
 }
