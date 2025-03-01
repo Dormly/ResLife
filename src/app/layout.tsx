@@ -46,17 +46,19 @@ export default async function RootLayout({
 		<html lang="en">
 			<SessionProvider session={session}>
 				<body className={`${inter.variable} overflow-x-clip antialiased`}>
-					<div className="absolute z-0 flex h-svh w-svw flex-col overflow-y-clip">
+					<div className="flex h-svh w-svw flex-col">
 						<Topbar />
-						<div className="flex h-full w-full flex-row overflow-clip">
-							<Sidebar />
-							<div className="flex w-full flex-col overflow-clip p-[1.25rem]">
+						<div className="flex h-full w-full flex-row overflow-hidden">
+							<div className="h-full w-[26rem] flex-shrink-0 overflow-y-auto">
+								<Sidebar />
+							</div>
+							<div className="flex w-full flex-1 flex-col overflow-y-auto p-[1.25rem]">
 								{children}
 							</div>
 						</div>
 					</div>
 
-					<div className="absolute bottom-0 right-0 z-10 p-[1.25rem]">
+					<div className="fixed bottom-0 right-0 z-10 p-[1.25rem]">
 						<Reports />
 					</div>
 				</body>

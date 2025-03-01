@@ -2,7 +2,6 @@ import Link from "next/link";
 import supabase from "../../utils/supabase";
 
 function Announcement({
-	key,
 	author,
 	date,
 	title,
@@ -15,7 +14,7 @@ function Announcement({
 	content: string;
 }) {
 	return (
-		<div className="flex flex-col gap-1 rounded-sm p-[0.25rem]" key={key}>
+		<div className="flex flex-col gap-1 rounded-sm p-[0.25rem]">
 			<p className="text-2xl font-bold">{title}</p>
 			<span className="flex flex-row items-center justify-between pb-2">
 				<div className="flex items-center gap-2">
@@ -38,17 +37,29 @@ function formatDate(dateString: string): string {
 	return `${month}/${day}/${year}`;
 }
 
-export default async function Announcements() {
+/**
+ * Component to display a list of announcements.
+ *
+ * @param {number} [props.request=5] - The number of announcements to request from the database. Defaults to 5.
+ * @param {number} [props.display=3] - The number of announcements to display. Defaults to 3.
+ */
+export default async function Announcements({
+	request = 5,
+	display = 3,
+}: {
+	request?: number;
+	display?: number;
+}) {
 	const { data: announcements } = await supabase
 		.from("announcements")
 		.select("id,creator_id(name),title,description,created_at")
 		.order("created_at", { ascending: false })
-		.limit(5);
-		
+		.limit(request);
+
 	return (
 		<div className="flex flex-col gap-[1.25rem]">
 			{announcements !== null &&
-				announcements.slice(0, 3).map((item, idx) => (
+				announcements.slice(0, display).map((item, idx) => (
 					<>
 						<Announcement
 							key={item.id}
@@ -57,17 +68,19 @@ export default async function Announcements() {
 							title={item.title}
 							content={item.description}
 						/>
-						{idx < 2 && <div className="h-[1px] w-full bg-zinc-200" />}
+						{idx < announcements.slice(0, display).length - 1 && (
+							<div className="h-[1px] w-full bg-zinc-200" />
+						)}
 					</>
 				))}
 
-			{announcements !== null && announcements.length > 3 && (
+			{announcements !== null && announcements.length > display && (
 				<>
 					<div className="h-[1px] w-full bg-zinc-200" />
 					<Link
 						href="/announcements"
 						className="text-sm text-gray-500 hover:text-magenta hover:underline">
-						+ {announcements.length - 3} more
+						+ {announcements.length - display} more
 					</Link>
 				</>
 			)}

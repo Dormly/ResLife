@@ -1,11 +1,9 @@
-"use client";
-
 import { ListTodo, AudioWaveform, CalendarDays } from "lucide-react";
 
 import SidebarItem from "./SidebarItem";
 import SidebarTask from "./SidebarTask";
 
-const Sidebar = () => {
+export default function Sidebar() {
 	return (
 		<div className="flex h-full min-w-[26rem] flex-col items-center gap-[1rem] overflow-y-scroll border-r-2 border-magenta/15 bg-magnolia p-[1.25rem]">
 			<SidebarItem title="Tasks" Icon={ListTodo}>
@@ -45,6 +43,4 @@ const Sidebar = () => {
 			</SidebarItem>
 		</div>
 	);
-};
-
-export default Sidebar;
+}

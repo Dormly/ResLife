@@ -58,7 +58,10 @@ export default function Dashboard() {
 				</div>
 
 				<div className="flex w-[36rem] flex-col gap-[1.25rem]">
-					<SidebarItem Icon={Megaphone} title="Announcements">
+					<SidebarItem
+						href="/announcements"
+						Icon={Megaphone}
+						title="Announcements">
 						<Announcements />
 					</SidebarItem>
 					<SidebarItem Icon={MessageSquareWarning} title="Recent Reports" />
