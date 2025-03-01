@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import supabase from "../../utils/supabase";
+import { formatDate } from "../../utils/common";
 
 function Announcement({
 	author,
@@ -30,15 +31,6 @@ function Announcement({
 			<p className="line-clamp-3 opacity-60">{content}</p>
 		</div>
 	);
-}
-
-function formatDate(dateString: string): string {
-	const date = new Date(dateString);
-	const month = date.getMonth() + 1; // Months are 0-indexed
-	const day = date.getDate();
-	const year = date.getFullYear();
-
-	return `${month}/${day}/${year}`;
 }
 
 /**
