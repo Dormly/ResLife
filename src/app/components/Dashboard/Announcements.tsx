@@ -3,22 +3,30 @@ import Image from "next/image";
 import supabase from "../../utils/supabase";
 import { formatDate } from "../../utils/common";
 
-function Announcement({
+export function Announcement({
+	id,
 	author,
 	profile,
 	date,
 	title,
 	content,
+	clamp = true,
 }: {
+	id: number;
 	author: string;
 	profile: string;
 	date: string;
 	title: string;
 	content: string;
+	clamp?: boolean;
 }) {
 	return (
 		<div className="flex flex-col gap-1 rounded-sm p-[0.25rem]">
-			<p className="text-lg font-semibold">{title}</p>
+			<Link
+				href={`/announcements/${id}`}
+				className="text-lg font-semibold hover:text-magenta hover:underline">
+				{title}
+			</Link>
 			<span className="flex flex-row items-center justify-between pb-2">
 				<div className="flex items-center gap-2">
 					{profile == "" ? (
@@ -35,9 +43,13 @@ function Announcement({
 
 					<p className="font-medium">{author}</p>
 				</div>
-				<p>{date}</p>
+				<p>{formatDate(date)}</p>
 			</span>
-			<p className="line-clamp-3 opacity-60">{content}</p>
+			{clamp ? (
+				<p className="line-clamp-3 opacity-60">{content}</p>
+			) : (
+				<p>{content}</p>
+			)}
 		</div>
 	);
 }
@@ -67,10 +79,10 @@ export default async function Announcements({
 				announcements.slice(0, display).map((item, idx) => (
 					<>
 						<Announcement
-							key={`announcement-${idx}`}
+							id={item.id}
 							author={item.creator_id.name}
-							profile={item.creator_id.profile || ""}
-							date={formatDate(item.created_at)}
+							profile={item.creator_id.profile ?? ""}
+							date={item.created_at}
 							title={item.title}
 							content={item.description}
 						/>
