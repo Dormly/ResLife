@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 
 import SidebarItem from "./components/SidebarItem";
 import Roster from "./components/Dashboard/Roster";
+import Mailroom from "./components/Dashboard/Mailroom";
 import Announcements from "./components/Dashboard/Announcements";
 
 import {
@@ -54,7 +55,9 @@ export default function Dashboard() {
 					<SidebarItem Icon={ClipboardList} title="Rosters">
 						<Roster />
 					</SidebarItem>
-					<SidebarItem Icon={Package} title="Mailroom" />
+					<SidebarItem Icon={Package} title="Mailroom">
+						<Mailroom />
+					</SidebarItem>
 				</div>
 
 				<div className="flex w-[36rem] flex-col gap-[1.25rem]">
