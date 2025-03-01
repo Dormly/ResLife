@@ -24,44 +24,5 @@
 			"ID": "602613",
 			"roomNo": "HEI 402"
 		}
-	],
-
-	"announcements": [
-		{
-			"title": "Dorm Meeting",
-			"author": "RA Emily",
-			"date": "2/25/2025",
-			"content": "There will be a mandatory dorm meeting in the lounge at 7 PM."
-		},
-		{
-			"title": "Maintenance Notice",
-			"author": "Facilities",
-			"date": "2/21/2025",
-			"content": "Water supply will be temporarily shut off tomorrow, February 22nd, 2025, from 10 AM to 12 PM. This is due to an unexpected but critical repair needed on the main water line serving the building.  \n\nYesterday afternoon, during a routine pressure check, our engineers detected a significant drop in pressure coupled with an unusual vibration emanating from the section of pipe running beneath the loading dock.  Further investigation revealed a hairline fracture in the pipe, likely caused by the recent ground settling following the unusually heavy rains we experienced last week. While the fracture is currently small, our experts have advised that it poses a significant risk of catastrophic failure if left unattended. Such a failure could result in extensive water damage to the lower levels of the building, potentially impacting electrical systems and causing significant disruption to operations.\n\nTo prevent this, we've scheduled an emergency repair for tomorrow morning.  The repair will involve isolating the affected section of the pipe, draining the remaining water, and welding a reinforced sleeve over the fracture.  This process requires a complete shutdown of the water supply to ensure the safety of our maintenance team and the integrity of the repair.  We understand that this temporary inconvenience may disrupt your normal routines, and we sincerely apologize for any hardship it may cause. We have expedited the repair schedule to minimize the downtime. We advise all occupants to store an adequate supply of water for drinking and essential use during the shutdown period.  Restrooms will be temporarily out of service. We will provide updates if the repair is completed ahead of schedule. Thank you for your understanding and cooperation as we work to ensure the continued safety and functionality of our building's infrastructure."
-		},
-		{
-			"title": "Social Event: Game Night",
-			"author": "Student Activities",
-			"date": "3/01/2025",
-			"content": "Join us for a fun-filled game night in the student center! Prizes will be awarded."
-		},
-		{
-			"title": "Library Closure",
-			"author": "Library Staff",
-			"date": "2/28/2025",
-			"content": "The library will be closed for inventory on Friday, February 28th. Normal hours will resume on Saturday."
-		},
-		{
-			"title": "Career Fair",
-			"author": "Career Services",
-			"date": "3/05/2025",
-			"content": "Don't miss the annual career fair! Meet with recruiters from top companies."
-		},
-		{
-			"title": "Tutoring Available",
-			"author": "Academic Support",
-			"date": "2/27/2025",
-			"content": "Free tutoring is available in math, science, and writing. Sign up online."
-		}
 	]
 }
