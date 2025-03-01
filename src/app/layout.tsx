@@ -27,14 +27,15 @@ export default async function RootLayout({
 		redirect("/api/auth/signin");
 	}
 
-	let { data } = await supabase
+	let { data: user } = await supabase
 		.from("users")
-		.select("id,email,name,profile")
-		.eq("email", session.user.email == null ? "" : session.user.email);
+		.select("id,email,name,profile,university_id(name)")
+		.eq("email", session.user.email == null ? "" : session.user.email)
+		.single();
 
-	if (data?.length === 0) {
+	if (user === null) {
 		console.log("User not found in DB, creating new user");
-		({ data } = await supabase
+		({ data: user } = await supabase
 			.from("users")
 			.insert([
 				{
@@ -44,7 +45,8 @@ export default async function RootLayout({
 					university_id: 1,
 				},
 			])
-			.select("id,email,name,profile"));
+			.select("id,email,name,profile,university_id(name)")
+			.single());
 	}
 
 	return (
@@ -52,7 +54,7 @@ export default async function RootLayout({
 			<SessionProvider session={session}>
 				<body className={`${inter.variable} overflow-x-clip antialiased`}>
 					<div className="flex h-svh w-svw flex-col">
-						<Topbar />
+						<Topbar university={user !== null && user.university_id.name !== null ? user.university_id.name : ""}/>
 						<div className="flex h-full w-full flex-row overflow-hidden">
 							<div className="h-full w-[26rem] flex-shrink-0 overflow-y-auto">
 								<Sidebar />
