@@ -43,7 +43,7 @@ function formatPathSegments(path: string): PathSegment[] {
 	return formattedSegments;
 }
 
-export default function DynamicPath() {
+export default function DynamicPath({ university }: { university: string }) {
 	const path = usePathname();
 
 	const pathSegments = formatPathSegments(path);
@@ -51,7 +51,7 @@ export default function DynamicPath() {
 	return (
 		<div>
 			<Link href="/" className="text-white/65">
-				Example University
+				{university}
 			</Link>
 			{" / "}
 			{pathSegments.map((segment, index) =>
