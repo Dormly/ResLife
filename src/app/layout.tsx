@@ -12,7 +12,7 @@ import Reports from "./components/Reports";
 import supabase from "./utils/supabase";
 
 export const metadata: Metadata = {
-	title: "ResLife",
+	title: "Dormly | ResLife",
 	description: "Dormly ResLife - Residential Community Management System",
 };
 
