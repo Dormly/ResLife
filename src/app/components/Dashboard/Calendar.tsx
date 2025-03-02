@@ -65,12 +65,6 @@ export default function Calendar() {
 					<SidebarTask
 						title="10:00pm"
 						subtitle="Building Meeting"></SidebarTask>
-					<button
-						onClick={() => {
-							alert(selected);
-						}}>
-						show selected
-					</button>
 				</div>
 			</div>
 		</div>
