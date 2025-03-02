@@ -25,10 +25,10 @@ export default function Calendar() {
 				<DayPicker
 					mode="single"
 					required
+					showOutsideDays
 					selected={selected}
 					onSelect={setSelected}
 					classNames={{
-						selected: "bg-magenta text-white text-center rounded-md size-8",
 						day_button:
 							"text-center size-8 hover:bg-magenta rounded-md hover:text-white transition-all duration-100",
 						root: `${getDefaultClassNames().root}`,
@@ -36,6 +36,8 @@ export default function Calendar() {
 						chevron: "border-2 border-magenta/15 rounded-md p-1",
 						weekdays: `text-center`,
 						month: "text-center",
+						outside: "text-center opacity-40",
+						selected: "bg-magenta text-white text-center rounded-md size-8",
 					}}
 				/>
 			</div>
