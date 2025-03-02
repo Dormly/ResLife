@@ -7,6 +7,7 @@ import SidebarTask from "../SidebarTask";
 
 export default function Calendar() {
 	const [selected, setSelected] = useState<Date>(new Date());
+	const [month, setMonth] = useState<Date>(new Date());
 	const today = new Date();
 
 	function mapDateToString(inputDate: Date): string {
@@ -29,6 +30,8 @@ export default function Calendar() {
 					showOutsideDays
 					selected={selected}
 					onSelect={setSelected}
+					month={month}
+					onMonthChange={setMonth}
 					classNames={{
 						day_button:
 							"text-center size-8 hover:bg-magenta rounded-md hover:text-white transition-all duration-100",
@@ -49,6 +52,7 @@ export default function Calendar() {
 						className="w-full rounded-md bg-magenta p-[0.25rem] text-sm font-semibold text-white duration-100 hover:bg-saffron"
 						onClick={() => {
 							setSelected(today);
+							setMonth(today);
 						}}>
 						Jump to Today
 					</button>
