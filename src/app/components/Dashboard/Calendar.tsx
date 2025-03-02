@@ -7,6 +7,7 @@ import SidebarTask from "../SidebarTask";
 
 export default function Calendar() {
 	const [selected, setSelected] = useState<Date>(new Date());
+	const today = new Date();
 
 	function mapDateToString(inputDate: Date): string {
 		const options: Intl.DateTimeFormatOptions = {
@@ -21,7 +22,7 @@ export default function Calendar() {
 
 	return (
 		<div className="flex w-full gap-8">
-			<div className="w-fit">
+			<div className="flex w-fit flex-col gap-[0.5rem]">
 				<DayPicker
 					mode="single"
 					required
@@ -40,6 +41,18 @@ export default function Calendar() {
 						selected: "bg-magenta text-white text-center rounded-md size-8",
 					}}
 				/>
+				{!(
+					selected.getMonth().toString() + selected.getDate().toString() ==
+					today.getMonth().toString() + today.getDate().toString()
+				) && (
+					<button
+						className="w-full rounded-md bg-magenta p-[0.25rem] text-sm font-semibold text-white duration-100 hover:bg-saffron"
+						onClick={() => {
+							setSelected(today);
+						}}>
+						Jump to Today
+					</button>
+				)}
 			</div>
 			<div className="w-full">
 				<div className="flex h-full w-full flex-col gap-2">
@@ -52,6 +65,12 @@ export default function Calendar() {
 					<SidebarTask
 						title="10:00pm"
 						subtitle="Building Meeting"></SidebarTask>
+					<button
+						onClick={() => {
+							alert(selected);
+						}}>
+						show selected
+					</button>
 				</div>
 			</div>
 		</div>
