@@ -21,6 +21,7 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	
 	const session = await getServerSession();
 
 	if (!session || !session.user) {
@@ -29,7 +30,7 @@ export default async function RootLayout({
 
 	let { data: user } = await supabase
 		.from("users")
-		.select("id,email,name,profile,university_id(name)")
+		.select("id,email,name,profile,university_id(id, name)")
 		.eq("email", session.user.email == null ? "" : session.user.email)
 		.single();
 
@@ -45,7 +46,7 @@ export default async function RootLayout({
 					university_id: 1,
 				},
 			])
-			.select("id,email,name,profile,university_id(name)")
+			.select("id,email,name,profile,university_id(id, name)")
 			.single());
 	}
 

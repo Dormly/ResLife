@@ -3,6 +3,8 @@ import React from "react";
 import exdb from "../exdb.json";
 import Link from "next/link";
 
+import supabase from "../../utils/supabase";
+
 const roster = exdb.roster;
 
 interface RosterEntry {
@@ -33,7 +35,19 @@ function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 	);
 }
 
-function RosterTable() {
+async function RosterTable() {
+	// const { data: floor_staff } await supabase
+	// .from('floor_staff')
+	// .select('floor_id')
+	// .eq('staff_id', 1);
+
+	const { data: student_bookings } = await supabase
+	.from('student_bookings')
+	.select('student_id(first_name, last_name), room_space_id(room_id(room, floor_id(building_id(abbreviation))))')
+	//.lte('start_date', Date.now());
+	// .lte('end_date', Date.now());
+	
+	console.log(student_bookings);
 	return (
 		<div className="flex flex-col gap-1 overflow-clip rounded-sm">
 			<div className="flex flex-row justify-between rounded-md bg-magenta px-2 py-1 font-semibold text-white">
