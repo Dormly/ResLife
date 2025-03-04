@@ -54,7 +54,13 @@ export default async function RootLayout({
 			<SessionProvider session={session}>
 				<body className={`${inter.variable} overflow-x-clip antialiased`}>
 					<div className="flex h-svh w-svw flex-col">
-						<Topbar university={user !== null && user.university_id.name !== null ? user.university_id.name : ""}/>
+						<Topbar
+							university={
+								user !== null && user.university_id.name !== null
+									? user.university_id.name
+									: ""
+							}
+						/>
 						<div className="flex h-full w-full flex-row overflow-hidden">
 							<div className="h-full w-[26rem] flex-shrink-0 overflow-y-auto">
 								<Sidebar />
