@@ -5,8 +5,6 @@ import Link from "next/link";
 
 import supabase from "../../utils/supabase";
 
-//const roster = exdb.roster;
-
 interface RosterEntry {
 	fName: string;
 	lName: string;
