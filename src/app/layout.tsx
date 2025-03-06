@@ -30,6 +30,7 @@ export default async function RootLayout({
 
 	const user = session.data;
 
+	console.log("us", session);
 	return (
 		<html lang="en">
 			<SessionProvider session={session}>
