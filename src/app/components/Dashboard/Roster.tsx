@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
 
-import exdb from "../exdb.json";
 import Link from "next/link";
 
 import supabase from "../../utils/supabase";
