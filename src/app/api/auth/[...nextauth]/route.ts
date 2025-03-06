@@ -1,5 +1,5 @@
 import NextAuth, { User, Account, Profile } from "next-auth";
-import { Session as NextAuthSession } from "next-auth";
+import { Session as NextAuthSession, DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import supabase from "../../../utils/supabase";
 import { JWT } from "next-auth/jwt";
