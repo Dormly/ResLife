@@ -1,6 +1,7 @@
 import NextAuth, { Session, User, Account, Profile } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import supabase from "../../../utils/supabase";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions = {
 	providers: [
@@ -40,16 +41,15 @@ export const authOptions = {
 			user.data = userData;
 			return true;
 		},
-		async jwt({ token, user, account, profile, isNewUser }: { token: Token, user: User, account: Account, profile: Profile, isNewUser: boolean }) {
+		async jwt({ token, user, account, profile, isNewUser }: { token: JWT, user: User, account: Account, profile: Profile, isNewUser: boolean }) {
 			if (user) {
 				token.data = user.data;
 			}
-			console.log(token);
 			return token;
 		},
-		async session({ session, token }: { session: Session, token: Token }) {
+		async session({ session, token }: { session: Session, token: JWT }) {
 			session.data = token.userData
-			return session;
+			return { ...session, ...token };
 		}
 	}
 };
