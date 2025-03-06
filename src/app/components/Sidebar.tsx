@@ -5,7 +5,7 @@ import SidebarTask from "./SidebarTask";
 
 export default function Sidebar() {
 	return (
-		<div className="flex h-full min-w-[26rem] flex-col items-center gap-[1rem] overflow-y-scroll border-r-2 border-magenta/15 bg-magnolia p-[1.25rem]">
+		<div className="flex h-full min-w-[26rem] flex-col items-center gap-[1rem] overflow-y-scroll border-r-2 border-magenta/15 bg-magenta/5 p-[1.25rem]">
 			<SidebarItem title="Tasks" Icon={ListTodo}>
 				<SidebarTask
 					title="Weekly Floor Reports"
