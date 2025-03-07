@@ -79,6 +79,7 @@ export default async function Announcements({
 				announcements.slice(0, display).map((item, idx) => (
 					<>
 						<Announcement
+							key={item.id}
 							id={item.id}
 							author={item.creator_id.name}
 							profile={item.creator_id.profile ?? ""}

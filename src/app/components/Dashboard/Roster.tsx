@@ -1,9 +1,9 @@
-import React from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 
-import exdb from "../exdb.json";
 import Link from "next/link";
 
-const roster = exdb.roster;
+import supabase from "../../utils/supabase";
 
 interface RosterEntry {
 	fName: string;
@@ -33,7 +33,46 @@ function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 	);
 }
 
-function RosterTable() {
+async function RosterTable() {
+	const session = await getServerSession(authOptions);
+	if (!session) {
+		// Handle the case when session is null
+		console.error("Session is null");
+		return null;
+	}
+	const user = session.data;
+
+	const { data: floor_staff } = await supabase
+	.from('floor_staff')
+	.select('user_id,floor_id(id,floor_name, building_id(abbreviation))')
+	.eq('user_id', user.id);
+
+	const roster: RosterEntry[] = [];
+
+	if (floor_staff) {
+		const promises = floor_staff.map(async (staff) => {
+			const { data: student_bookings } = await supabase
+				.from('student_bookings')
+				.select('student_id(id, first_name, last_name), room_space_id(room_id(room, floor_id(id,building_id(abbreviation))))');
+			if (student_bookings) {
+				student_bookings.forEach((booking) => {
+					if (booking.room_space_id.room_id.floor_id.id === staff.floor_id.id) {
+						roster.push({
+							fName: booking.student_id?.first_name ? booking.student_id.first_name : "",
+							lName: booking.student_id?.last_name ? booking.student_id.last_name : "",
+							id: booking.student_id?.id ? booking.student_id.id.toString() : "",
+							roomNo: staff.floor_id.building_id.abbreviation + " " + booking.room_space_id.room_id.room
+						});
+					}
+				});
+			}
+		});
+		await Promise.all(promises);
+	}
+
+
+	//.lte('start_date', Date.now());
+	// .lte('end_date', Date.now());
 	return (
 		<div className="flex flex-col gap-1 overflow-clip rounded-sm">
 			<div className="flex flex-row justify-between rounded-md bg-magenta px-2 py-1 font-semibold text-white">
@@ -55,7 +94,7 @@ function RosterTable() {
 					key={`roster-entry-${idx}`}
 					fName={item.fName}
 					lName={item.lName}
-					id={item.ID}
+					id={item.id}
 					roomNo={item.roomNo}
 				/>
 			))}
