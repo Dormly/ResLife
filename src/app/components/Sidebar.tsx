@@ -27,7 +27,11 @@ export default function Sidebar() {
 					subtitle="Tap to view details"></SidebarTask>
 			</SidebarItem>
 
-			<SidebarItem Icon={MessageSquareWarning} title="Recent Reports" />
+			<SidebarItem
+				Icon={MessageSquareWarning}
+				title="Reports"
+				href="/reports"
+			/>
 		</div>
 	);
 }
