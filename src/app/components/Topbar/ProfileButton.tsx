@@ -1,30 +1,32 @@
-"use client";
-
-import { signIn, signOut, useSession } from "next-auth/react";
+import createServerClient from "@/app/utils/supabase/server";
+import { signInWithGoogle, signOut } from "@/app/utils/database";
 import Image from "next/image";
 
-function AuthButton() {
-	const { data: session } = useSession();
+async function AuthButton() {
+	const supabase = await createServerClient();
+	const session = await supabase.auth.getUser();
 
-	if (session) {
+	if (session.data.user) {
 		return (
 			<>
-				<button onClick={() => signOut()}>
-					<Image
-						className="rounded-full"
-						src={session?.user?.image ?? ""}
-						alt="Profile Picture"
-						width={40}
-						height={40}
-					></Image>
-				</button>
+				<form action={signOut}>
+					<button>
+						<Image
+							className="rounded-full"
+							src={session.data.user?.user_metadata.picture ?? ""}
+							alt="Profile Picture"
+							width={40}
+							height={40}></Image>
+					</button>
+				</form>
 			</>
 		);
 	}
 	return (
 		<>
-			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
+			<form action={signInWithGoogle}>
+				<button>Sign In</button>
+			</form>
 		</>
 	);
 }
