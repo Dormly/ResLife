@@ -66,7 +66,7 @@ export default function Dashboard() {
 						href="/announcements"
 						Icon={Megaphone}
 						title="Announcements">
-						{/* <Announcements /> */}
+						<Announcements />
 					</SidebarItem>
 				</div>
 			</div>
