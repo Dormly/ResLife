@@ -4,14 +4,13 @@
 
 import { Sun, Sunset, Moon, CalendarDays } from "lucide-react";
 import { inter } from "@/app/ui/fonts";
-import { getServerSession } from "next-auth";
 
 import SidebarItem from "./components/SidebarItem";
 import Roster from "./components/Dashboard/Roster";
 import Announcements from "./components/Dashboard/Announcements";
 
 import { ClipboardList, Megaphone } from "lucide-react";
-import supabase from "./utils/supabase";
+import createServerClient from "@/app/utils/supabase/server";
 import Calendar from "./components/Dashboard/Calendar";
 
 function HourGreeting({ name }: { name: string }) {
@@ -37,14 +36,14 @@ function HourGreeting({ name }: { name: string }) {
 }
 
 async function Greeting() {
-	const session = await getServerSession();
+	const supabase = await createServerClient();
+	const session = await supabase.auth.getUser();
 
-	const { data } = await supabase
-		.from("users")
-		.select("name")
-		.eq("email", session?.user?.email || "");
-
-	return <HourGreeting name={data?.[0]?.name || "Residential Living Staff"} />;
+	return (
+		<HourGreeting
+			name={session.data.user?.user_metadata.name || "Residential Living Staff"}
+		/>
+	);
 }
 
 export default function Dashboard() {
@@ -67,7 +66,7 @@ export default function Dashboard() {
 						href="/announcements"
 						Icon={Megaphone}
 						title="Announcements">
-						<Announcements />
+						{/* <Announcements /> */}
 					</SidebarItem>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import supabase from "../../utils/supabase";
+
 import { formatDate } from "../../utils/common";
 
 export function Announcement({

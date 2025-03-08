@@ -35,5 +35,10 @@ async function signInWith(provider: string) {
 }
 
 export async function signInWithGoogle() {
-	return await signInWith("google");
+	await signInWith("google");
+}
+
+export async function signOut() {
+	const supabase = await createServerClient();
+	await supabase.auth.signOut();
 }

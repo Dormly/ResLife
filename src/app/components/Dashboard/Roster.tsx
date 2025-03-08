@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
 
 import Link from "next/link";
 
@@ -34,42 +33,52 @@ function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 }
 
 async function RosterTable() {
-	const session = await getServerSession(authOptions);
-	if (!session) {
-		// Handle the case when session is null
-		console.error("Session is null");
-		return null;
-	}
-	const user = session.data;
+	// const session = await getServerSession(authOptions);
+	// if (!session) {
+	// 	// Handle the case when session is null
+	// 	console.error("Session is null");
+	// 	return null;
+	// }
+	// const user = session.data;
 
-	const { data: floor_staff } = await supabase
-	.from('floor_staff')
-	.select('user_id,floor_id(id,floor_name, building_id(abbreviation))')
-	.eq('user_id', user.id);
+	// const { data: floor_staff } = await supabase
+	// 	.from("floor_staff")
+	// 	.select("user_id,floor_id(id,floor_name, building_id(abbreviation))")
+	// 	.eq("user_id", user.id);
 
 	const roster: RosterEntry[] = [];
 
-	if (floor_staff) {
-		const promises = floor_staff.map(async (staff) => {
-			const { data: student_bookings } = await supabase
-				.from('student_bookings')
-				.select('student_id(id, first_name, last_name), room_space_id(room_id(room, floor_id(id,building_id(abbreviation))))');
-			if (student_bookings) {
-				student_bookings.forEach((booking) => {
-					if (booking.room_space_id.room_id.floor_id.id === staff.floor_id.id) {
-						roster.push({
-							fName: booking.student_id?.first_name ? booking.student_id.first_name : "",
-							lName: booking.student_id?.last_name ? booking.student_id.last_name : "",
-							id: booking.student_id?.id ? booking.student_id.id.toString() : "",
-							roomNo: staff.floor_id.building_id.abbreviation + " " + booking.room_space_id.room_id.room
-						});
-					}
-				});
-			}
-		});
-		await Promise.all(promises);
-	}
-
+	// if (floor_staff) {
+	// 	const promises = floor_staff.map(async (staff) => {
+	// 		const { data: student_bookings } = await supabase
+	// 			.from("student_bookings")
+	// 			.select(
+	// 				"student_id(id, first_name, last_name), room_space_id(room_id(room, floor_id(id,building_id(abbreviation))))",
+	// 			);
+	// 		if (student_bookings) {
+	// 			student_bookings.forEach((booking) => {
+	// 				if (booking.room_space_id.room_id.floor_id.id === staff.floor_id.id) {
+	// 					roster.push({
+	// 						fName: booking.student_id?.first_name
+	// 							? booking.student_id.first_name
+	// 							: "",
+	// 						lName: booking.student_id?.last_name
+	// 							? booking.student_id.last_name
+	// 							: "",
+	// 						id: booking.student_id?.id
+	// 							? booking.student_id.id.toString()
+	// 							: "",
+	// 						roomNo:
+	// 							staff.floor_id.building_id.abbreviation +
+	// 							" " +
+	// 							booking.room_space_id.room_id.room,
+	// 					});
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	// 	await Promise.all(promises);
+	// }
 
 	//.lte('start_date', Date.now());
 	// .lte('end_date', Date.now());
