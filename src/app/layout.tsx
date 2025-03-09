@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { inter } from "@/app/ui/fonts";
-import { createClient } from "@/app/utils/supabase/server";
 
 import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
 import Reports from "./components/Reports";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
 	title: "Dormly | ResLife",
@@ -19,12 +17,12 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const supabase = await createClient();
-	const session = await supabase.auth.getUser();
+	// const supabase = await createClient();
+	// const session = await supabase.auth.getUser();
 
-	if (!session.data.user) {
-		redirect("/api/auth");
-	}
+	// if (!session.data.user) {
+	// 	redirect("/api/auth");
+	// }
 
 	return (
 		<html lang="en">
