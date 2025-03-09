@@ -742,16 +742,22 @@ export type Database = {
 			};
 			users: {
 				Row: {
+					name: string | null;
+					profile_photo: string | null;
 					student_id: number | null;
 					university_id: number;
 					uuid: string;
 				};
 				Insert: {
+					name?: string | null;
+					profile_photo?: string | null;
 					student_id?: number | null;
 					university_id: number;
 					uuid: string;
 				};
 				Update: {
+					name?: string | null;
+					profile_photo?: string | null;
 					student_id?: number | null;
 					university_id?: number;
 					uuid?: string;
