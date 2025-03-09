@@ -724,19 +724,19 @@ export type Database = {
 					abbreviation: string | null;
 					id: number;
 					institution_code: string;
-					name: string | null;
+					name: string;
 				};
 				Insert: {
 					abbreviation?: string | null;
 					id?: number;
 					institution_code: string;
-					name?: string | null;
+					name: string;
 				};
 				Update: {
 					abbreviation?: string | null;
 					id?: number;
 					institution_code?: string;
-					name?: string | null;
+					name?: string;
 				};
 				Relationships: [];
 			};
