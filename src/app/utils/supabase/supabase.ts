@@ -724,34 +724,40 @@ export type Database = {
 					abbreviation: string | null;
 					id: number;
 					institution_code: string;
-					name: string | null;
+					name: string;
 				};
 				Insert: {
 					abbreviation?: string | null;
 					id?: number;
 					institution_code: string;
-					name?: string | null;
+					name: string;
 				};
 				Update: {
 					abbreviation?: string | null;
 					id?: number;
 					institution_code?: string;
-					name?: string | null;
+					name?: string;
 				};
 				Relationships: [];
 			};
 			users: {
 				Row: {
+					name: string | null;
+					profile_photo: string | null;
 					student_id: number | null;
 					university_id: number;
 					uuid: string;
 				};
 				Insert: {
+					name?: string | null;
+					profile_photo?: string | null;
 					student_id?: number | null;
 					university_id: number;
 					uuid: string;
 				};
 				Update: {
+					name?: string | null;
+					profile_photo?: string | null;
 					student_id?: number | null;
 					university_id?: number;
 					uuid?: string;

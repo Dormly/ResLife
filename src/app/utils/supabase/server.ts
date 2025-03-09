@@ -1,7 +1,9 @@
+"use server";
+
 import { createServerClient } from "@supabase/ssr";
 import assert from "assert";
 import { cookies } from "next/headers";
-import { Database } from "../supabase";
+import { Database } from "./supabase";
 
 export async function createClient() {
 	assert(process.env.SUPABASE_URL, "env.SUPABASE_URL is not set");
@@ -11,7 +13,7 @@ export async function createClient() {
 
 	return createServerClient<Database>(
 		process.env.SUPABASE_URL!,
-		process.env.SUPABASE_ANON_KEY!, // normally anon key
+		process.env.SUPABASE_ANON_KEY!,
 		{
 			cookies: {
 				getAll() {
@@ -22,7 +24,8 @@ export async function createClient() {
 						cookiesToSet.forEach(({ name, value, options }) =>
 							cookieStore.set(name, value, options),
 						);
-					} catch {
+					} catch (error) {
+						console.error("Failed to set cookies: " + error);
 						// The `setAll` method was called from a Server Component.
 						// This can be ignored if you have middleware refreshing
 						// user sessions.
@@ -31,4 +34,46 @@ export async function createClient() {
 			},
 		},
 	);
+}
+
+export async function getUserProfile() {
+	const supabase = await createClient();
+	const session = await supabase.auth.getUser();
+
+	if (!session.data.user) {
+		return null;
+	}
+
+	const { data: user, error } = await supabase
+		.from("users")
+		.select("*")
+		.eq("uuid", session.data.user.id)
+		.single();
+
+	if (error) {
+		throw error;
+	}
+
+	return user;
+}
+
+export async function getUniversityInfo() {
+	const supabase = await createClient();
+	const session = await supabase.auth.getUser();
+
+	if (!session.data.user) {
+		return null;
+	}
+
+	const { data: university, error } = await supabase
+		.from("users")
+		.select("university_id(*)")
+		.eq("uuid", session.data.user.id)
+		.single();
+
+	if (error) {
+		throw error;
+	}
+
+	return university.university_id;
 }
