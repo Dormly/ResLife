@@ -1,7 +1,7 @@
 "use server";
 
 import assert from "assert";
-import createServerClient from "./supabase/server";
+import { createClient } from "./supabase/server";
 import { redirect } from "next/navigation";
 
 async function signInWith(provider: string) {
@@ -13,7 +13,7 @@ async function signInWith(provider: string) {
 	);
 	assert(process.env.SITE_URL, "env.SITE_URL is not set");
 
-	const supabase = await createServerClient();
+	const supabase = await createClient();
 	const authCallbackURL = `${process.env.SITE_URL}/api/auth/callback`;
 
 	const { data, error } = await supabase.auth.signInWithOAuth({
@@ -39,6 +39,6 @@ export async function signInWithGoogle() {
 }
 
 export async function signOut() {
-	const supabase = await createServerClient();
+	const supabase = await createClient();
 	await supabase.auth.signOut();
 }

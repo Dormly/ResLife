@@ -4,7 +4,7 @@
  * Maintenance Report Form Contents
  */
 
-export default function MaintenanceReport() {
+export function MaintenanceReport() {
 	return (
 		<>
 			<p>Maintenance Report</p>

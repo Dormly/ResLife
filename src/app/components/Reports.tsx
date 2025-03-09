@@ -11,9 +11,9 @@ import React, { useState } from "react";
 import { LucideIcon, Plus, X } from "lucide-react";
 import { createPortal } from "react-dom";
 
-import StandardReport from "./reports/StandardReport";
-import ConductReport from "./reports/ConductReport";
-import MaintenanceReport from "./reports/MaintenanceReport";
+import { ConductReport } from "./Reports/ConductReport";
+import { MaintenanceReport } from "./Reports/MaintenanceReport";
+import { StandardReport } from "./Reports/StandardReport";
 
 // Report Modal, children = form contents
 function Report({

@@ -1,9 +1,9 @@
-import createServerClient from "@/app/utils/supabase/server";
+import { createClient } from "@/app/utils/supabase/server";
 import { signInWithGoogle, signOut } from "@/app/utils/database";
 import Image from "next/image";
 
 async function AuthButton() {
-	const supabase = await createServerClient();
+	const supabase = await createClient();
 	const session = await supabase.auth.getUser();
 
 	if (session.data.user) {

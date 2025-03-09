@@ -1,5 +1,3 @@
-export {};
-
 export type Json =
 	| string
 	| number
@@ -14,7 +12,7 @@ export type Database = {
 			announcements: {
 				Row: {
 					created_at: string;
-					creator_id: number;
+					creator_uuid: string | null;
 					description: string;
 					id: number;
 					organization_id: number | null;
@@ -23,7 +21,7 @@ export type Database = {
 				};
 				Insert: {
 					created_at?: string;
-					creator_id: number;
+					creator_uuid?: string | null;
 					description?: string;
 					id?: number;
 					organization_id?: number | null;
@@ -32,7 +30,7 @@ export type Database = {
 				};
 				Update: {
 					created_at?: string;
-					creator_id?: number;
+					creator_uuid?: string | null;
 					description?: string;
 					id?: number;
 					organization_id?: number | null;
@@ -41,11 +39,11 @@ export type Database = {
 				};
 				Relationships: [
 					{
-						foreignKeyName: "announcements_creator_id_fkey";
-						columns: ["creator_id"];
+						foreignKeyName: "announcements_creator_uuid_fkey";
+						columns: ["creator_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
 					},
 					{
 						foreignKeyName: "announcements_organization_id_fkey";
@@ -112,6 +110,7 @@ export type Database = {
 					description: string | null;
 					end_date: string;
 					id: number;
+					platform: Database["public"]["Enums"]["AnnouncementType"];
 					start_date: string;
 					title: string;
 					university_id: number;
@@ -120,6 +119,7 @@ export type Database = {
 					description?: string | null;
 					end_date: string;
 					id?: number;
+					platform: Database["public"]["Enums"]["AnnouncementType"];
 					start_date: string;
 					title: string;
 					university_id: number;
@@ -128,6 +128,7 @@ export type Database = {
 					description?: string | null;
 					end_date?: string;
 					id?: number;
+					platform?: Database["public"]["Enums"]["AnnouncementType"];
 					start_date?: string;
 					title?: string;
 					university_id?: number;
@@ -257,21 +258,21 @@ export type Database = {
 					floor_id: number;
 					id: number;
 					start_date: string;
-					user_id: number;
+					user_uuid: string;
 				};
 				Insert: {
 					end_date?: string | null;
 					floor_id: number;
 					id?: number;
 					start_date?: string;
-					user_id: number;
+					user_uuid: string;
 				};
 				Update: {
 					end_date?: string | null;
 					floor_id?: number;
 					id?: number;
 					start_date?: string;
-					user_id?: number;
+					user_uuid?: string;
 				};
 				Relationships: [
 					{
@@ -282,11 +283,11 @@ export type Database = {
 						referencedColumns: ["id"];
 					},
 					{
-						foreignKeyName: "floor_staff_user_id_fkey";
-						columns: ["user_id"];
+						foreignKeyName: "floor_staff_user_uuid_fkey";
+						columns: ["user_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
 					},
 				];
 			};
@@ -319,7 +320,7 @@ export type Database = {
 			incidents: {
 				Row: {
 					created_date: string;
-					creator_id: number;
+					creator_uuid: string;
 					date: string;
 					description: string | null;
 					id: number;
@@ -327,7 +328,7 @@ export type Database = {
 				};
 				Insert: {
 					created_date?: string;
-					creator_id: number;
+					creator_uuid: string;
 					date?: string;
 					description?: string | null;
 					id?: number;
@@ -335,7 +336,7 @@ export type Database = {
 				};
 				Update: {
 					created_date?: string;
-					creator_id?: number;
+					creator_uuid?: string;
 					date?: string;
 					description?: string | null;
 					id?: number;
@@ -343,11 +344,11 @@ export type Database = {
 				};
 				Relationships: [
 					{
-						foreignKeyName: "incident_record_creator_id_fkey";
-						columns: ["creator_id"];
+						foreignKeyName: "incidents_creator_uuid_fkey";
+						columns: ["creator_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
 					},
 				];
 			};
@@ -355,54 +356,54 @@ export type Database = {
 				Row: {
 					id: number;
 					issued_date: string | null;
-					issuer_id: number | null;
+					issuer_uuid: string | null;
 					mailroom_id: number;
 					received_at: string;
-					receiver_id: number;
+					receiver_uuid: string;
 					student_id: number;
 					type: Database["public"]["Enums"]["MailType"];
 				};
 				Insert: {
 					id?: number;
 					issued_date?: string | null;
-					issuer_id?: number | null;
+					issuer_uuid?: string | null;
 					mailroom_id: number;
 					received_at?: string;
-					receiver_id: number;
+					receiver_uuid: string;
 					student_id: number;
 					type: Database["public"]["Enums"]["MailType"];
 				};
 				Update: {
 					id?: number;
 					issued_date?: string | null;
-					issuer_id?: number | null;
+					issuer_uuid?: string | null;
 					mailroom_id?: number;
 					received_at?: string;
-					receiver_id?: number;
+					receiver_uuid?: string;
 					student_id?: number;
 					type?: Database["public"]["Enums"]["MailType"];
 				};
 				Relationships: [
-					{
-						foreignKeyName: "mail_entry_issuer_id_fkey";
-						columns: ["issuer_id"];
-						isOneToOne: false;
-						referencedRelation: "users";
-						referencedColumns: ["id"];
-					},
-					{
-						foreignKeyName: "mail_entry_receiver_id_fkey";
-						columns: ["receiver_id"];
-						isOneToOne: false;
-						referencedRelation: "users";
-						referencedColumns: ["id"];
-					},
 					{
 						foreignKeyName: "mail_mailroom_id_fkey";
 						columns: ["mailroom_id"];
 						isOneToOne: false;
 						referencedRelation: "mailroom";
 						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "mail_record_issuer_uuid_fkey";
+						columns: ["issuer_uuid"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["uuid"];
+					},
+					{
+						foreignKeyName: "mail_record_receiver_uuid_fkey";
+						columns: ["receiver_uuid"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["uuid"];
 					},
 					{
 						foreignKeyName: "mail_student_id_fkey";
@@ -431,8 +432,8 @@ export type Database = {
 			maintenances: {
 				Row: {
 					building_id: number | null;
-					completer_id: number | null;
-					creator_id: number | null;
+					completer_uuid: string | null;
+					creator_uuid: string;
 					date_completed: string | null;
 					date_submitted: string;
 					description: string;
@@ -440,8 +441,8 @@ export type Database = {
 				};
 				Insert: {
 					building_id?: number | null;
-					completer_id?: number | null;
-					creator_id?: number | null;
+					completer_uuid?: string | null;
+					creator_uuid: string;
 					date_completed?: string | null;
 					date_submitted?: string;
 					description: string;
@@ -449,8 +450,8 @@ export type Database = {
 				};
 				Update: {
 					building_id?: number | null;
-					completer_id?: number | null;
-					creator_id?: number | null;
+					completer_uuid?: string | null;
+					creator_uuid?: string;
 					date_completed?: string | null;
 					date_submitted?: string;
 					description?: string;
@@ -458,18 +459,18 @@ export type Database = {
 				};
 				Relationships: [
 					{
-						foreignKeyName: "maintenance_entry_completer_id_fkey";
-						columns: ["completer_id"];
+						foreignKeyName: "maintenances_completer_uuid_fkey";
+						columns: ["completer_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
 					},
 					{
-						foreignKeyName: "maintenance_entry_creator_id_fkey";
-						columns: ["creator_id"];
+						foreignKeyName: "maintenances_creator_uuid_fkey";
+						columns: ["creator_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
 					},
 				];
 			};
@@ -520,7 +521,7 @@ export type Database = {
 			reports: {
 				Row: {
 					created_date: string;
-					creator_id: number;
+					creator_uuid: string;
 					date: string;
 					description: string | null;
 					id: number;
@@ -529,7 +530,7 @@ export type Database = {
 				};
 				Insert: {
 					created_date?: string;
-					creator_id: number;
+					creator_uuid: string;
 					date?: string;
 					description?: string | null;
 					id?: number;
@@ -538,7 +539,7 @@ export type Database = {
 				};
 				Update: {
 					created_date?: string;
-					creator_id?: number;
+					creator_uuid?: string;
 					date?: string;
 					description?: string | null;
 					id?: number;
@@ -547,11 +548,11 @@ export type Database = {
 				};
 				Relationships: [
 					{
-						foreignKeyName: "report_record_creator_id_fkey";
-						columns: ["creator_id"];
+						foreignKeyName: "reports_creator_uuid_fkey";
+						columns: ["creator_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
 					},
 				];
 			};
@@ -675,36 +676,46 @@ export type Database = {
 			};
 			tasks: {
 				Row: {
-					assigned_id: number;
+					assigned_uuid: string;
 					completed: boolean;
 					created_at: string;
+					creator_uuid: string;
 					description: string;
 					id: number;
 					title: string;
 				};
 				Insert: {
-					assigned_id: number;
+					assigned_uuid: string;
 					completed?: boolean;
 					created_at?: string;
+					creator_uuid: string;
 					description?: string;
 					id?: number;
 					title?: string;
 				};
 				Update: {
-					assigned_id?: number;
+					assigned_uuid?: string;
 					completed?: boolean;
 					created_at?: string;
+					creator_uuid?: string;
 					description?: string;
 					id?: number;
 					title?: string;
 				};
 				Relationships: [
 					{
-						foreignKeyName: "tasks_assigned_id_fkey";
-						columns: ["assigned_id"];
+						foreignKeyName: "tasks_assigned_uuid_fkey";
+						columns: ["assigned_uuid"];
 						isOneToOne: false;
 						referencedRelation: "users";
-						referencedColumns: ["id"];
+						referencedColumns: ["uuid"];
+					},
+					{
+						foreignKeyName: "tasks_creator_uuid_fkey";
+						columns: ["creator_uuid"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["uuid"];
 					},
 				];
 			};
@@ -731,31 +742,19 @@ export type Database = {
 			};
 			users: {
 				Row: {
-					created_at: string;
-					email: string;
-					id: number;
-					name: string;
-					profile: string | null;
 					student_id: number | null;
 					university_id: number;
+					uuid: string;
 				};
 				Insert: {
-					created_at?: string;
-					email?: string;
-					id?: number;
-					name: string;
-					profile?: string | null;
 					student_id?: number | null;
 					university_id: number;
+					uuid: string;
 				};
 				Update: {
-					created_at?: string;
-					email?: string;
-					id?: number;
-					name?: string;
-					profile?: string | null;
 					student_id?: number | null;
 					university_id?: number;
+					uuid?: string;
 				};
 				Relationships: [
 					{

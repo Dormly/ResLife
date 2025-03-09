@@ -10,7 +10,7 @@ import Roster from "./components/Dashboard/Roster";
 import Announcements from "./components/Dashboard/Announcements";
 
 import { ClipboardList, Megaphone } from "lucide-react";
-import createServerClient from "@/app/utils/supabase/server";
+import { createClient } from "@/app/utils/supabase/server";
 import Calendar from "./components/Dashboard/Calendar";
 
 function HourGreeting({ name }: { name: string }) {
@@ -36,7 +36,7 @@ function HourGreeting({ name }: { name: string }) {
 }
 
 async function Greeting() {
-	const supabase = await createServerClient();
+	const supabase = await createClient();
 	const session = await supabase.auth.getUser();
 
 	return (

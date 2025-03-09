@@ -1,5 +1,5 @@
 import Link from "next/link";
-import createServerClient from "@/app/utils/supabase/server";
+import { createClient } from "@/app/utils/supabase/server";
 import Image from "next/image";
 
 import { formatDate } from "../../utils/common";
@@ -68,7 +68,7 @@ export default async function Announcements({
 	request?: number;
 	display?: number;
 }) {
-	const supabase = await createServerClient();
+	const supabase = await createClient();
 	const { data: announcements } = await supabase
 		.from("announcements")
 		.select("id,creator_uuid(uuid),title,description,created_at")
@@ -83,7 +83,7 @@ export default async function Announcements({
 						<Announcement
 							key={item.id}
 							id={item.id}
-							author={item.creator_uuid.toString() ?? ""}
+							author={item.creator_uuid?.toString() ?? ""}
 							profile={""}
 							date={item.created_at}
 							title={item.title}
