@@ -3,6 +3,7 @@ import { createClient } from "@/app/utils/supabase/server";
 import Image from "next/image";
 
 import { formatDate } from "../../utils/common";
+import assert from "assert";
 
 export function Announcement({
 	id,
@@ -68,6 +69,7 @@ export default async function Announcements({
 	request?: number;
 	display?: number;
 }) {
+	assert(process.env.SITE_URL, "prcoess.env.SITE_URL is not defined in .env");
 	const supabase = await createClient();
 	const { data: announcements } = await supabase
 		.from("announcements")
@@ -86,7 +88,10 @@ export default async function Announcements({
 							key={item.id}
 							id={item.id}
 							author={item.creator_uuid?.name ?? ""}
-							profile={item.creator_uuid?.profile_photo ?? ""}
+							profile={
+								item.creator_uuid?.profile_photo ??
+								process.env.SITE_URL + "/defaults/profile_photo_default.svg"
+							}
 							date={item.created_at}
 							title={item.title}
 							content={item.description}
