@@ -83,9 +83,8 @@ export default async function Announcements({
 		<div className="flex flex-col gap-[1.25rem]">
 			{announcements !== null &&
 				announcements.slice(0, display).map((item, idx) => (
-					<>
+					<div key={item.id}>
 						<Announcement
-							key={item.id}
 							id={item.id}
 							author={item.creator_uuid?.name ?? ""}
 							profile={
@@ -99,7 +98,7 @@ export default async function Announcements({
 						{idx < announcements.slice(0, display).length - 1 && (
 							<div className="h-[1px] w-full bg-zinc-200" />
 						)}
-					</>
+					</div>
 				))}
 
 			{announcements !== null && announcements.length > display && (
