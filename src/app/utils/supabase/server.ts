@@ -1,14 +1,15 @@
 import { createServerClient } from "@supabase/ssr";
 import assert from "assert";
 import { cookies } from "next/headers";
+import { Database } from "../supabase";
 
-export default async function createClient() {
+export async function createClient() {
 	assert(process.env.SUPABASE_URL, "env.SUPABASE_URL is not set");
 	assert(process.env.SUPABASE_ANON_KEY, "env.SUPABASE_SERVICE_KEY is not set");
 
 	const cookieStore = await cookies();
 
-	return createServerClient(
+	return createServerClient<Database>(
 		process.env.SUPABASE_URL!,
 		process.env.SUPABASE_ANON_KEY!, // normally anon key
 		{

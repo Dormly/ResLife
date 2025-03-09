@@ -1,4 +1,4 @@
-import createServerClient from "@/app/utils/supabase/server";
+import { createClient } from "@/app/utils/supabase/server";
 import Link from "next/link";
 
 interface RosterEntry {
@@ -30,7 +30,7 @@ function RosterEntry({ fName, lName, id, roomNo }: RosterEntry) {
 }
 
 async function RosterTable() {
-	const supabase = await createServerClient();
+	const supabase = await createClient();
 	const session = await supabase.auth.getUser();
 
 	if (!session.data.user) {

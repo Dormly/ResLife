@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { inter } from "@/app/ui/fonts";
-import createServerClient from "@/app/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 import Sidebar from "@/app/components/Sidebar";
 import Topbar from "@/app/components/Topbar";
@@ -19,8 +17,8 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const supabase = await createServerClient();
-	const session = await supabase.auth.getUser();
+	// const supabase = await createClient();
+	// const session = await supabase.auth.getUser();
 
 	// if (!session.data.user) {
 	// 	redirect("/api/auth");

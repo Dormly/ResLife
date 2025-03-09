@@ -4,7 +4,7 @@
  * Standard Report Form Contents
  */
 
-export default function StandardReport() {
+export function StandardReport() {
 	return (
 		<>
 			<p>Standard Report</p>

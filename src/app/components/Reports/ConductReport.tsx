@@ -4,7 +4,7 @@
  * Conduct Report Form Contents
  */
 
-export default function ConductReport() {
+export function ConductReport() {
 	return (
 		<>
 			<p>Conduct Report</p>

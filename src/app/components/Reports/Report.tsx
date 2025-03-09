@@ -41,7 +41,6 @@ function UserTag({ name, imageSrc }: { name: string; imageSrc: string }) {
 }
 
 export default function Report({
-	id,
 	title,
 	author,
 	profile,
@@ -50,7 +49,6 @@ export default function Report({
 	date,
 	created_date,
 }: {
-	id: number;
 	title: string;
 	author: string;
 	profile?: string;

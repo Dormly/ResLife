@@ -1,5 +1,5 @@
 import { Announcement } from "@/app/components/Dashboard/Announcements";
-import supabase from "@/app/utils/supabase";
+import { createClient } from "@/app/utils/supabase/server";
 
 export default async function AnnouncementPage({
 	params,
@@ -9,9 +9,13 @@ export default async function AnnouncementPage({
 	// TODO: Error catching
 	const id = parseInt(await params.then((p) => p.id));
 
+	const supabase = await createClient();
+
 	const { data: announcement } = await supabase
 		.from("announcements")
-		.select("id,creator_id(name,profile),title,description,created_at")
+		.select(
+			"id,creator_uuid(student_id(first_name, last_name)),title,description,created_at",
+		)
 		.eq("id", id)
 		.single();
 
@@ -23,8 +27,8 @@ export default async function AnnouncementPage({
 		<div className="p-[1.25rem]">
 			<Announcement
 				id={id}
-				author={announcement.creator_id.name}
-				profile={announcement.creator_id.profile ?? ""}
+				author={`${announcement.creator_uuid?.student_id.first_name ?? ""} ${announcement.creator_uuid?.student_id.last_name ?? ""}`}
+				profile={""} // TODO: Add profile picture
 				date={announcement.created_at}
 				title={announcement.title}
 				content={announcement.description}

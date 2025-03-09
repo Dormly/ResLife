@@ -1,6 +1,6 @@
 import React from "react";
-import supabase from "../../utils/supabase";
 import { formatDate } from "../../utils/common";
+import { createClient } from "@/app/utils/supabase/server";
 
 interface MailEntry {
 	mailroomName: string;
@@ -12,7 +12,15 @@ interface MailEntry {
 	receivedAt: string;
 }
 
-function MailEntry({ mailroomName, fName, lName, id, roomNo, packageType, receivedAt }: MailEntry) {
+function MailEntry({
+	mailroomName,
+	fName,
+	lName,
+	id,
+	roomNo,
+	packageType,
+	receivedAt,
+}: MailEntry) {
 	return (
 		<div className="flex flex-row justify-between">
 			<span className="w-full">
@@ -41,26 +49,31 @@ function MailEntry({ mailroomName, fName, lName, id, roomNo, packageType, receiv
 }
 
 async function MailTable() {
+	const supabase = await createClient();
+
 	const { data: mail_record } = await supabase
-	.from("mail_record")
-	.select("id,student_id(id,first_name,last_name),mailroom_id(id, name),type,received_at")
-	.order("received_at", { ascending: false })
-	.is('issued_date', null)
+		.from("mail_record")
+		.select(
+			"id,student_id(id,first_name,last_name),mailroom_id(id, name),type,received_at",
+		)
+		.order("received_at", { ascending: false })
+		.is("issued_date", null);
 
 	return (
 		<div className="flex flex-col overflow-clip rounded-sm">
-			{mail_record !== null && mail_record.map((item, idx) => (
-				<MailEntry
-					key={`mail-record-${idx}`}
-					mailroomName={item.mailroom_id.name}
-					fName={item.student_id.first_name}
-					lName={item.student_id.last_name}
-					id={item.student_id.id.toString()}
-					roomNo={"4"}
-					packageType={item.type}
-					receivedAt={formatDate(item.received_at)}
-				/>
-			))}
+			{mail_record !== null &&
+				mail_record.map((item, idx) => (
+					<MailEntry
+						key={`mail-record-${idx}`}
+						mailroomName={item.mailroom_id.name}
+						fName={item.student_id.first_name}
+						lName={item.student_id.last_name}
+						id={item.student_id.id.toString()}
+						roomNo={"4"}
+						packageType={item.type}
+						receivedAt={formatDate(item.received_at)}
+					/>
+				))}
 		</div>
 	);
 }
