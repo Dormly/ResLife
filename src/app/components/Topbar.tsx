@@ -8,7 +8,13 @@ export default async function Topbar() {
 	const universityInfo = await getUniversityInfo();
 
 	if (!universityInfo) {
-		return null;
+		return (
+			<div className="flex flex-row items-center justify-between bg-magenta p-2 px-6 text-white">
+				<div className="flex flex-row items-center justify-between gap-6">
+					<ProfileButton />
+				</div>
+			</div>
+		);
 	}
 
 	return (
