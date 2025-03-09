@@ -34,7 +34,6 @@ async function RosterTable() {
 	const session = await supabase.auth.getUser();
 
 	if (!session.data.user) {
-		console.error("Session is null");
 		return null;
 	}
 
