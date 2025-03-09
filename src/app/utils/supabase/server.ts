@@ -35,3 +35,24 @@ export async function createClient() {
 		},
 	);
 }
+
+export async function getUserProfile() {
+	const supabase = await createClient();
+	const session = await supabase.auth.getUser();
+
+	if (!session.data.user) {
+		return null;
+	}
+
+	const { data: user, error } = await supabase
+		.from("users")
+		.select("*")
+		.eq("uuid", session.data.user.id)
+		.single();
+
+	if (error) {
+		throw error;
+	}
+
+	return user;
+}
