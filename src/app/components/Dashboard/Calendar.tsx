@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import SidebarTask from "../SidebarTask";
 
@@ -9,6 +8,10 @@ export default function Calendar() {
 	const [selected, setSelected] = useState<Date>(new Date());
 	const [month, setMonth] = useState<Date>(new Date());
 	const today = new Date();
+
+	// getUniversityInfo((id) => {
+	// 	console.log("University ID:", id);
+	// });
 
 	function mapDateToString(inputDate: Date): string {
 		const options: Intl.DateTimeFormatOptions = {
