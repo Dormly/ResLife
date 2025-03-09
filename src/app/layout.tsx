@@ -35,7 +35,7 @@ export default async function RootLayout({
 		<html lang="en">
 			<body className={`${inter.variable} overflow-x-clip antialiased`}>
 				<div className="flex h-svh w-svw flex-col">
-					<Topbar university={university?.university_id.name || ""} />
+					<Topbar />
 					<div className="flex h-full w-full flex-row overflow-hidden">
 						<div className="h-full w-[26rem] flex-shrink-0 overflow-y-auto">
 							<Sidebar />

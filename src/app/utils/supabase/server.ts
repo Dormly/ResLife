@@ -56,3 +56,24 @@ export async function getUserProfile() {
 
 	return user;
 }
+
+export async function getUniversityInfo() {
+	const supabase = await createClient();
+	const session = await supabase.auth.getUser();
+
+	if (!session.data.user) {
+		return null;
+	}
+
+	const { data: university, error } = await supabase
+		.from("users")
+		.select("university_id(*)")
+		.eq("uuid", session.data.user.id)
+		.single();
+
+	if (error) {
+		throw error;
+	}
+
+	return university.university_id;
+}
