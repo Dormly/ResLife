@@ -1,4 +1,5 @@
 "use server";
+import "server-only";
 
 import assert from "assert";
 import { createClient } from "./supabase/server";
