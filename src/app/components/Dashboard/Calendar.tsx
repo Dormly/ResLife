@@ -1,17 +1,71 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import SidebarTask from "../SidebarTask";
+import {
+	QueryClient,
+	useQuery,
+	QueryClientProvider,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+function CalendarEntry({ date }: { date: Date }) {
+	const { isPending, error, data } = useQuery<
+		{
+			title: string;
+			description: string;
+			start_date: string;
+			end_date: string;
+		}[]
+	>({
+		queryKey: ["calendar", date],
+		queryFn: async () => {
+			const response = await fetch(`/api/calendar?date=${date.toISOString()}`);
+			const data = await response.json();
+			return data;
+		},
+	});
+
+	if (isPending) return "Loading...";
+	if (error) return "An error has occurred: " + error.message;
+
+	if (data.length === 0) {
+		return <p>No events today.</p>;
+	}
+
+	return (
+		<>
+			{Array.isArray(data) &&
+				data.map(
+					(
+						item: {
+							title: string;
+							description: string;
+							start_date: string;
+							end_date: string;
+						},
+						idx: number,
+					) => (
+						<SidebarTask
+							key={idx}
+							title={
+								new Date(item.start_date).toLocaleTimeString() +
+								" - " +
+								new Date(item.end_date).toLocaleTimeString()
+							}
+							subtitle={item.title}></SidebarTask>
+					),
+				)}
+		</>
+	);
+}
 
 export default function Calendar() {
 	const [selected, setSelected] = useState<Date>(new Date());
 	const [month, setMonth] = useState<Date>(new Date());
 	const today = new Date();
-
-	// getUniversityInfo((id) => {
-	// 	console.log("University ID:", id);
-	// });
 
 	function mapDateToString(inputDate: Date): string {
 		const options: Intl.DateTimeFormatOptions = {
@@ -66,12 +120,9 @@ export default function Calendar() {
 					<strong className="w-full rounded-md bg-magenta px-2 py-1 text-lg text-white">
 						{mapDateToString(selected)}
 					</strong>
-					<SidebarTask
-						title="7:00pm - 9:00pm"
-						subtitle="Williams Lobby Office Shift"></SidebarTask>
-					<SidebarTask
-						title="10:00pm"
-						subtitle="Building Meeting"></SidebarTask>
+					<QueryClientProvider client={queryClient}>
+						<CalendarEntry date={selected} />
+					</QueryClientProvider>
 				</div>
 			</div>
 		</div>
