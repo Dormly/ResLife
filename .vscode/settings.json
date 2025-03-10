@@ -2,5 +2,7 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": false,
-	"prettier.requireConfig": true
+	"prettier.requireConfig": true,
+	"eslint.lintTask.enable": true,
+	"eslint.run": "onSave"
 }

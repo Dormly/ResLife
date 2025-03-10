@@ -1,3 +1,4 @@
+"use server";
 import React from "react";
 import { formatDate } from "../../utils/common";
 import { createClient } from "@/app/utils/supabase/server";

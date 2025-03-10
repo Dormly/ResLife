@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 import { Pencil } from "lucide-react";

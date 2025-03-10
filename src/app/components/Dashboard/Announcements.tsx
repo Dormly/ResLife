@@ -1,10 +1,12 @@
+"use server";
 import Link from "next/link";
 import { createClient } from "@/app/utils/supabase/server";
 import Image from "next/image";
 
 import { formatDate } from "../../utils/common";
+import assert from "assert";
 
-export function Announcement({
+export async function Announcement({
 	id,
 	author,
 	profile,
@@ -68,10 +70,13 @@ export default async function Announcements({
 	request?: number;
 	display?: number;
 }) {
+	assert(process.env.SITE_URL, "prcoess.env.SITE_URL is not defined in .env");
 	const supabase = await createClient();
 	const { data: announcements } = await supabase
 		.from("announcements")
-		.select("id,creator_uuid(uuid),title,description,created_at")
+		.select(
+			"id,creator_uuid(uuid, name, profile_photo),title,description,created_at",
+		)
 		.order("created_at", { ascending: false })
 		.limit(request);
 
@@ -79,12 +84,14 @@ export default async function Announcements({
 		<div className="flex flex-col gap-[1.25rem]">
 			{announcements !== null &&
 				announcements.slice(0, display).map((item, idx) => (
-					<>
+					<div key={item.id}>
 						<Announcement
-							key={item.id}
 							id={item.id}
-							author={item.creator_uuid?.toString() ?? ""}
-							profile={""}
+							author={item.creator_uuid?.name ?? ""}
+							profile={
+								item.creator_uuid?.profile_photo ??
+								process.env.SITE_URL + "/defaults/profile_photo_default.svg"
+							}
 							date={item.created_at}
 							title={item.title}
 							content={item.description}
@@ -92,7 +99,7 @@ export default async function Announcements({
 						{idx < announcements.slice(0, display).length - 1 && (
 							<div className="h-[1px] w-full bg-zinc-200" />
 						)}
-					</>
+					</div>
 				))}
 
 			{announcements !== null && announcements.length > display && (

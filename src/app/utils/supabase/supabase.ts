@@ -1,3 +1,6 @@
+"use server";
+import "server-only"; // Technically not necessary, but we only want the server to have the schema so others cannot reverse engineer it.
+
 export type Json =
 	| string
 	| number
@@ -17,7 +20,8 @@ export type Database = {
 					id: number;
 					organization_id: number | null;
 					title: string;
-					type: Database["public"]["Enums"]["AnnouncementType"];
+					type: Database["public"]["Enums"]["PlatformType"];
+					university_id: number | null;
 				};
 				Insert: {
 					created_at?: string;
@@ -26,7 +30,8 @@ export type Database = {
 					id?: number;
 					organization_id?: number | null;
 					title?: string;
-					type?: Database["public"]["Enums"]["AnnouncementType"];
+					type?: Database["public"]["Enums"]["PlatformType"];
+					university_id?: number | null;
 				};
 				Update: {
 					created_at?: string;
@@ -35,7 +40,8 @@ export type Database = {
 					id?: number;
 					organization_id?: number | null;
 					title?: string;
-					type?: Database["public"]["Enums"]["AnnouncementType"];
+					type?: Database["public"]["Enums"]["PlatformType"];
+					university_id?: number | null;
 				};
 				Relationships: [
 					{
@@ -105,12 +111,12 @@ export type Database = {
 					},
 				];
 			};
-			calendar_event: {
+			calendar_events: {
 				Row: {
 					description: string | null;
 					end_date: string;
 					id: number;
-					platform: Database["public"]["Enums"]["AnnouncementType"];
+					platform_type: Database["public"]["Enums"]["PlatformType"];
 					start_date: string;
 					title: string;
 					university_id: number;
@@ -119,7 +125,7 @@ export type Database = {
 					description?: string | null;
 					end_date: string;
 					id?: number;
-					platform: Database["public"]["Enums"]["AnnouncementType"];
+					platform_type?: Database["public"]["Enums"]["PlatformType"];
 					start_date: string;
 					title: string;
 					university_id: number;
@@ -128,7 +134,7 @@ export type Database = {
 					description?: string | null;
 					end_date?: string;
 					id?: number;
-					platform?: Database["public"]["Enums"]["AnnouncementType"];
+					platform_type?: Database["public"]["Enums"]["PlatformType"];
 					start_date?: string;
 					title?: string;
 					university_id?: number;
@@ -724,34 +730,40 @@ export type Database = {
 					abbreviation: string | null;
 					id: number;
 					institution_code: string;
-					name: string | null;
+					name: string;
 				};
 				Insert: {
 					abbreviation?: string | null;
 					id?: number;
 					institution_code: string;
-					name?: string | null;
+					name: string;
 				};
 				Update: {
 					abbreviation?: string | null;
 					id?: number;
 					institution_code?: string;
-					name?: string | null;
+					name?: string;
 				};
 				Relationships: [];
 			};
 			users: {
 				Row: {
+					name: string | null;
+					profile_photo: string | null;
 					student_id: number | null;
 					university_id: number;
 					uuid: string;
 				};
 				Insert: {
+					name?: string | null;
+					profile_photo?: string | null;
 					student_id?: number | null;
 					university_id: number;
 					uuid: string;
 				};
 				Update: {
+					name?: string | null;
+					profile_photo?: string | null;
 					student_id?: number | null;
 					university_id?: number;
 					uuid?: string;
@@ -781,8 +793,8 @@ export type Database = {
 			[_ in never]: never;
 		};
 		Enums: {
-			AnnouncementType: "ResLife" | "OnCampus";
 			MailType: "Package" | "Letter" | "Perishables";
+			PlatformType: "ResLife" | "OnCampus";
 			ReportType: "Standard" | "Maintenance" | "Conduct";
 		};
 		CompositeTypes: {

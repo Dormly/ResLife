@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createClient } from "@/app/utils/supabase/server";
 import "./globals.css";
 
 import { inter } from "@/app/ui/fonts";
@@ -17,18 +18,24 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	// const supabase = await createClient();
-	// const session = await supabase.auth.getUser();
+	const supabase = await createClient();
+	const session = await supabase.auth.getUser();
 
 	// if (!session.data.user) {
 	// 	redirect("/api/auth");
 	// }
 
+	const { data: university } = await supabase
+		.from("users")
+		.select("uuid,university_id(name)")
+		.eq("uuid", session.data.user?.id || "")
+		.single();
+
 	return (
 		<html lang="en">
 			<body className={`${inter.variable} overflow-x-clip antialiased`}>
 				<div className="flex h-svh w-svw flex-col">
-					<Topbar university={"Text"} />
+					<Topbar />
 					<div className="flex h-full w-full flex-row overflow-hidden">
 						<div className="h-full w-[26rem] flex-shrink-0 overflow-y-auto">
 							<Sidebar />
