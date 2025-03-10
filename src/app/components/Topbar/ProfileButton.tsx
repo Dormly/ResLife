@@ -1,3 +1,4 @@
+"use server";
 import { getUserProfile } from "@/app/utils/supabase/server";
 import { signInWithGoogle, signOut } from "@/app/utils/database";
 import Image from "next/image";
@@ -36,6 +37,6 @@ async function AuthButton() {
 	);
 }
 
-export default function ProfileButton() {
+export default async function ProfileButton() {
 	return <AuthButton />;
 }

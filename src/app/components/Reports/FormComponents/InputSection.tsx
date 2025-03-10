@@ -1,3 +1,4 @@
+"use client";
 export enum SectionType {
 	ShortResponse = 0,
 	Paragraph = 1,

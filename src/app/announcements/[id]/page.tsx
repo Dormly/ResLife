@@ -1,3 +1,4 @@
+"use server";
 import { Announcement } from "@/app/components/Dashboard/Announcements";
 import { createClient } from "@/app/utils/supabase/server";
 

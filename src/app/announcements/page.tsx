@@ -1,3 +1,4 @@
+"use server";
 import Announcements from "../components/Dashboard/Announcements";
 
 export default async function AnnouncementPage() {

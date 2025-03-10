@@ -1,3 +1,4 @@
+"use server";
 import Report from "@/app/components/Reports/Report";
 import { createClient } from "@/app/utils/supabase/server";
 

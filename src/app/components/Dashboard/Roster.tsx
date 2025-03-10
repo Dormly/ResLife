@@ -1,3 +1,4 @@
+"use server";
 import { createClient } from "@/app/utils/supabase/server";
 import Link from "next/link";
 
@@ -107,7 +108,7 @@ async function RosterTable() {
 	);
 }
 
-export default function Roster() {
+export default async function Roster() {
 	return (
 		<div className="flex flex-col gap-[1.25rem]">
 			<RosterTable />

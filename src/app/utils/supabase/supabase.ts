@@ -1,3 +1,6 @@
+"use server";
+import "server-only"; // Technically not necessary, but we only want the server to have the schema so others cannot reverse engineer it.
+
 export type Json =
 	| string
 	| number

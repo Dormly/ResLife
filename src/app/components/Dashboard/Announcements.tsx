@@ -1,3 +1,4 @@
+"use server";
 import Link from "next/link";
 import { createClient } from "@/app/utils/supabase/server";
 import Image from "next/image";
@@ -5,7 +6,7 @@ import Image from "next/image";
 import { formatDate } from "../../utils/common";
 import assert from "assert";
 
-export function Announcement({
+export async function Announcement({
 	id,
 	author,
 	profile,

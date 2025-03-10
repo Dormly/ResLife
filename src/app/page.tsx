@@ -1,3 +1,4 @@
+"use server";
 /*
  * Dashboard
  */
@@ -46,7 +47,7 @@ async function Greeting() {
 	);
 }
 
-export default function Dashboard() {
+export default async function Dashboard() {
 	return (
 		<div className="flex h-full w-full flex-col gap-[1.25rem] p-[1.25rem]">
 			<Greeting />
